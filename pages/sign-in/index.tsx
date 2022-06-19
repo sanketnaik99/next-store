@@ -2,7 +2,7 @@ import { NextPage } from "next";
 import { Typography } from "@mui/material";
 import { Box, Container } from "@mui/system";
 import React from "react";
-import SignInForm from "../components/SignIn/SignInForm/SignInForm";
+import SignInForm from "../../components/SignIn/SignInForm/SignInForm";
 
 const SignIn: NextPage = () => {
   return (

@@ -1,16 +1,17 @@
-import {
-  Button,
-  CircularProgress,
-  Grid,
-  TextField,
-  Typography,
-} from "@mui/material";
+import { Button, Grid, TextField } from "@mui/material";
 import { useFormik } from "formik";
-import React, { useReducer } from "react";
+import React from "react";
+import { commerce } from "../../../pages/_app";
 import { validationSchema } from "./types";
 
 const SignInForm = () => {
-  const submitForm = async (values: { email: string }) => {};
+  const submitForm = async (values: { email: string }) => {
+    console.log("Calling commerce");
+    commerce.customer
+      .login(values.email, "https://localhost:3000/sign-in/callback")
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
+  };
 
   const formik = useFormik({
     initialValues: {
@@ -33,6 +34,7 @@ const SignInForm = () => {
             label="Email"
             value={formik.values.email}
             onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
             error={formik.touched.email && Boolean(formik.errors.email)}
             helperText={formik.touched.email && formik.errors.email}
             data-cy="signin-email-input-field"

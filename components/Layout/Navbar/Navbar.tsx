@@ -92,35 +92,11 @@ const Navbar: React.FC<Props> = ({ isLoggedIn, currentTheme, setTheme }) => {
           </Box>
           <Box
             sx={{
-              display: { xs: "flex", md: "none" },
-              cursor: "pointer",
-              flexDirection: "row-reverse",
-            }}
-          >
-            <IconButton
-              size="large"
-              aria-label="Cart Button"
-              color="inherit"
-              onClick={() => router.push("cart")}
-            >
-              <ShoppingCartOutlined />
-            </IconButton>
-          </Box>
-          <Box
-            sx={{
               flexGrow: 1,
               display: { xs: "none", md: "flex" },
               flexDirection: "row-reverse",
             }}
           >
-            <IconButton
-              size="large"
-              aria-label="Cart Button"
-              color="inherit"
-              onClick={() => router.push("cart")}
-            >
-              <ShoppingCartOutlined />
-            </IconButton>
             {pages.map((page) => (
               <Link href={page.link} key={page.link}>
                 <Button sx={{ my: 2, color: "white", display: "block" }}>
@@ -129,6 +105,13 @@ const Navbar: React.FC<Props> = ({ isLoggedIn, currentTheme, setTheme }) => {
               </Link>
             ))}
           </Box>
+          <IconButton
+            aria-label="Cart Button"
+            color="inherit"
+            onClick={() => router.push("cart")}
+          >
+            <ShoppingCartOutlined />
+          </IconButton>
           <IconButton
             color="inherit"
             onClick={() =>

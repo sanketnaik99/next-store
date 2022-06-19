@@ -23,6 +23,7 @@
     "yup": "^0.32.11"
   },
   "devDependencies": {
+    "@types/chec__commerce.js": "^2.8.5",
     "@types/node": "18.0.0",
     "@types/react": "18.0.14",
     "@types/react-dom": "18.0.5",
