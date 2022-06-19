@@ -1,4 +1,9 @@
-import { Menu, ShoppingCartOutlined } from "@mui/icons-material";
+import {
+  DarkMode,
+  LightMode,
+  Menu,
+  ShoppingCartOutlined,
+} from "@mui/icons-material";
 import {
   AppBar,
   Box,
@@ -21,22 +26,23 @@ const loggedInPages: NavbarButton[] = [
   { title: "Home", link: "/" },
 ];
 const loggedOutPages: NavbarButton[] = [
-  { title: "Sign Up", link: "/sign-up" },
   { title: "Sign In", link: "/sign-in" },
   { title: "Home", link: "/" },
 ];
 
 interface Props {
   isLoggedIn: boolean;
+  setTheme: (theme: string) => void;
+  currentTheme: string;
 }
 
-const Navbar: React.FC<Props> = ({ isLoggedIn }) => {
+const Navbar: React.FC<Props> = ({ isLoggedIn, currentTheme, setTheme }) => {
   const [isDrawerOpen, setDrawerOpen] = useState(false);
   const pages = isLoggedIn ? loggedInPages : loggedOutPages;
   const router = useRouter();
 
   return (
-    <AppBar position="sticky">
+    <AppBar position="sticky" enableColorOnDark>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Box sx={{ display: { xs: "none", md: "flex" }, cursor: "pointer" }}>
@@ -72,7 +78,6 @@ const Navbar: React.FC<Props> = ({ isLoggedIn }) => {
               flexGrow: 1,
               display: { xs: "flex", md: "none" },
               cursor: "pointer",
-              justifyContent: "center",
             }}
           >
             <Link href="/">
@@ -124,6 +129,14 @@ const Navbar: React.FC<Props> = ({ isLoggedIn }) => {
               </Link>
             ))}
           </Box>
+          <IconButton
+            color="inherit"
+            onClick={() =>
+              currentTheme === "light" ? setTheme("dark") : setTheme("light")
+            }
+          >
+            {currentTheme === "light" ? <DarkMode /> : <LightMode />}
+          </IconButton>
         </Toolbar>
       </Container>
     </AppBar>

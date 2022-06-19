@@ -20,7 +20,6 @@ const loggedInButtons: SideDrawerButton[] = [
 const loggedOutButtons: SideDrawerButton[] = [
   { title: "Home", icon: <Home />, link: "/" },
   { title: "Sign In", icon: <Person />, link: "/sign-in" },
-  { title: "Sign Up", icon: <PersonAdd />, link: "/sign-up" },
 ];
 
 const SideDrawer: React.FC<Props> = ({

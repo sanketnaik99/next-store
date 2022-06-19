@@ -1,53 +1,55 @@
-import { createTheme } from '@mui/material';
-
+import { createTheme } from "@mui/material";
 
 export const darkTheme = createTheme({
   palette: {
-    mode: 'dark',
+    mode: "dark",
+    background: {
+      default: "#303030",
+      paper: "#424242",
+    },
     primary: {
-      main: '#009688',
+      main: "#009688",
     },
     secondary: {
-      main: '#ff6d00',
-      contrastText: '#ffffff',
+      main: "#ff6d00",
+      contrastText: "#ffffff",
     },
     error: {
-      main: '#ff1744',
+      main: "#ff1744",
     },
     warning: {
-      main: '#ff5722',
+      main: "#ff5722",
     },
     info: {
-      main: '#00b0ff',
+      main: "#00b0ff",
     },
     success: {
-      main: '#00e676',
+      main: "#00e676",
     },
   },
 });
 
 export const lightTheme = createTheme({
-    palette: {
-      mode: 'light',
-      primary: {
-        main: '#009688',
-      },
-      secondary: {
-        main: '#ff6d00',
-        contrastText: '#ffffff',
-      },
-      error: {
-        main: '#ff1744',
-      },
-      warning: {
-        main: '#ff5722',
-      },
-      info: {
-        main: '#00b0ff',
-      },
-      success: {
-        main: '#00e676',
-      },
+  palette: {
+    mode: "light",
+    primary: {
+      main: "#009688",
     },
-  });
-
+    secondary: {
+      main: "#ff6d00",
+      contrastText: "#ffffff",
+    },
+    error: {
+      main: "#ff1744",
+    },
+    warning: {
+      main: "#ff5722",
+    },
+    info: {
+      main: "#00b0ff",
+    },
+    success: {
+      main: "#00e676",
+    },
+  },
+});
