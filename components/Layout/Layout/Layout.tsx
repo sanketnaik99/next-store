@@ -1,6 +1,10 @@
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import Head from "next/head";
 import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../../../ducks";
+import { initializeCart } from "../../../ducks/cart";
+import { commerce } from "../../../pages/_app";
 import { darkTheme, lightTheme } from "../../../theme";
 import Navbar from "../Navbar/Navbar";
 
@@ -11,6 +15,23 @@ interface Props {
 const Layout: React.FC<Props> = ({ children }) => {
   const [currentTheme, setTheme] = useState("light");
   const [hasLoaded, setLoaded] = useState(false);
+  const [hasCartInitialized, setCartInitialized] = useState<boolean>(false);
+  const dispatch = useDispatch<AppDispatch>();
+
+  const initializeCommerceCart = async () => {
+    const cart = await commerce.cart.retrieve();
+    dispatch(initializeCart(cart));
+  };
+
+  useEffect(() => {
+    if (!hasCartInitialized) {
+      // Initialize Cart
+      // console.log("Initialized Cart");
+      initializeCommerceCart();
+      setCartInitialized(true);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [hasCartInitialized]);
 
   useEffect(() => {
     // Get stored theme.

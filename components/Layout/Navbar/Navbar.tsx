@@ -11,6 +11,7 @@ import {
   Toolbar,
   Container,
   Button,
+  Badge,
 } from "@mui/material";
 import Link from "next/link";
 
@@ -20,6 +21,8 @@ import { NavbarButton } from "./types";
 import Logo from "../../../public/assets/store-logo.png";
 import Image from "next/image";
 import { useRouter } from "next/router";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../ducks";
 
 const loggedInPages: NavbarButton[] = [
   { title: "Cart", link: "/cart" },
@@ -40,6 +43,9 @@ const Navbar: React.FC<Props> = ({ isLoggedIn, currentTheme, setTheme }) => {
   const [isDrawerOpen, setDrawerOpen] = useState(false);
   const pages = isLoggedIn ? loggedInPages : loggedOutPages;
   const router = useRouter();
+  const itemCount = useSelector<RootState, number>(
+    (state) => state.cart.total_items
+  );
 
   return (
     <AppBar position="sticky" enableColorOnDark>
@@ -110,7 +116,13 @@ const Navbar: React.FC<Props> = ({ isLoggedIn, currentTheme, setTheme }) => {
             color="inherit"
             onClick={() => router.push("cart")}
           >
-            <ShoppingCartOutlined />
+            {itemCount > 0 ? (
+              <Badge color="secondary" badgeContent={itemCount}>
+                <ShoppingCartOutlined />
+              </Badge>
+            ) : (
+              <ShoppingCartOutlined />
+            )}
           </IconButton>
           <IconButton
             color="inherit"

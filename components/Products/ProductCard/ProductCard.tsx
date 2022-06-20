@@ -1,3 +1,4 @@
+import { Product } from "@chec/commerce.js/types/product";
 import {
   Button,
   Card,
@@ -8,9 +9,29 @@ import {
 import { Box } from "@mui/system";
 import Image from "next/image";
 import React from "react";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../../../ducks";
+import { addToCart } from "../../../ducks/cart";
+import { commerce } from "../../../pages/_app";
 import { Props } from "./types";
 
 const ProductCard: React.FC<Props> = ({ product }) => {
+  const dispatch = useDispatch<AppDispatch>();
+
+  const addItemToCart = async (product: Product) => {
+    await commerce.cart
+      .add(product.id, 1)
+      .then((res) => {
+        console.log(`Added ${product.name} to Cart`);
+        // Dispatch Success Action
+        dispatch(addToCart(res.cart));
+      })
+      .catch((err) => {
+        console.log(`Error adding ${product.name} to Cart`);
+        // Dispatch Error Action
+      });
+  };
+
   return (
     <Card sx={{ height: "100%", display: "flex", flexDirection: "column" }}>
       <Box sx={{ display: "flex", justifyContent: "center" }}>
@@ -36,7 +57,14 @@ const ProductCard: React.FC<Props> = ({ product }) => {
         </Typography>
       </CardContent>
       <CardActions sx={{ float: "inline-end" }}>
-        <Button size="small" fullWidth variant="contained" onClick={() => {}}>
+        <Button
+          size="small"
+          fullWidth
+          variant="contained"
+          onClick={() => {
+            addItemToCart(product);
+          }}
+        >
           Add to Cart
         </Button>
         <Button size="small" fullWidth variant="outlined">
