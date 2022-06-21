@@ -6,6 +6,7 @@ import {
   CardActions,
   CardContent,
   Typography,
+  useTheme,
 } from "@mui/material";
 import { Box } from "@mui/system";
 import Image from "next/image";
@@ -28,6 +29,7 @@ const ProductCard: React.FC<Props> = ({ product }) => {
   const currentProductId = useSelector<RootState, string>(
     (state) => state.cart.currentProductId ?? ""
   );
+  const theme = useTheme();
 
   const addItemToCart = async (product: Product) => {
     dispatch(addToCartLoading(product.id));
@@ -81,7 +83,7 @@ const ProductCard: React.FC<Props> = ({ product }) => {
         >
           Add to Cart
         </LoadingButton>
-        <Button size="small" fullWidth variant="outlined">
+        <Button size="small" fullWidth variant="outlined" color="neutral">
           Learn More
         </Button>
       </CardActions>
