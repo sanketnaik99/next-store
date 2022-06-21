@@ -1,4 +1,5 @@
 import { Product } from "@chec/commerce.js/types/product";
+import { LoadingButton } from "@mui/lab";
 import {
   Button,
   Card,
@@ -9,26 +10,38 @@ import {
 import { Box } from "@mui/system";
 import Image from "next/image";
 import React from "react";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "../../../ducks";
-import { addToCart } from "../../../ducks/cart";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../../ducks";
+import {
+  addToCartError,
+  addToCartLoading,
+  addToCartSuccess,
+} from "../../../ducks/cart";
 import { commerce } from "../../../pages/_app";
 import { Props } from "./types";
 
 const ProductCard: React.FC<Props> = ({ product }) => {
   const dispatch = useDispatch<AppDispatch>();
+  const isCartLoading = useSelector<RootState, boolean>(
+    (state) => state.cart.isLoading
+  );
+  const currentProductId = useSelector<RootState, string>(
+    (state) => state.cart.currentProductId ?? ""
+  );
 
   const addItemToCart = async (product: Product) => {
+    dispatch(addToCartLoading(product.id));
     await commerce.cart
       .add(product.id, 1)
       .then((res) => {
         console.log(`Added ${product.name} to Cart`);
         // Dispatch Success Action
-        dispatch(addToCart(res.cart));
+        dispatch(addToCartSuccess(res.cart));
       })
       .catch((err) => {
         console.log(`Error adding ${product.name} to Cart`);
         // Dispatch Error Action
+        dispatch(addToCartError());
       });
   };
 
@@ -57,16 +70,17 @@ const ProductCard: React.FC<Props> = ({ product }) => {
         </Typography>
       </CardContent>
       <CardActions sx={{ float: "inline-end" }}>
-        <Button
+        <LoadingButton
           size="small"
           fullWidth
           variant="contained"
           onClick={() => {
             addItemToCart(product);
           }}
+          loading={isCartLoading && currentProductId === product.id}
         >
           Add to Cart
-        </Button>
+        </LoadingButton>
         <Button size="small" fullWidth variant="outlined">
           Learn More
         </Button>

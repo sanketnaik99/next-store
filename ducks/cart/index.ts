@@ -1,45 +1,77 @@
 import { Cart } from "@chec/commerce.js/types/cart";
 import {
   Action,
-  AddToCartAction,
-  ADD_ITEM_TO_CART,
+  AddToCartErrorAction,
+  AddToCartSuccessAction,
+  ADD_TO_CART_ERROR,
+  ADD_TO_CART_LOADING,
+  ADD_TO_CART_SUCCESS,
+  CartState,
   InitializeCartAction,
   INITIALIZE_CART,
 } from "./types";
-
-export const addToCart = (newCart: Cart): AddToCartAction => {
-  return { type: ADD_ITEM_TO_CART, newCart };
-};
 
 export const initializeCart = (cart: Cart): InitializeCartAction => {
   return { type: INITIALIZE_CART, cart };
 };
 
-const initialState: Cart = {
-  id: "",
-  created: 0,
-  expires: 0,
-  updated: 0,
-  total_items: 0,
-  total_unique_items: 0,
-  currency: { symbol: "", code: "" },
-  subtotal: {
-    raw: 0,
-    formatted: "",
-    formatted_with_code: "",
-    formatted_with_symbol: "",
-  },
-  discount_code: "",
-  hosted_checkout_url: "",
-  line_items: [],
+export const addToCartLoading = (productId: string) => {
+  return { type: ADD_TO_CART_LOADING, productId };
 };
 
-export const reducer = (state: Cart = initialState, action: Action): Cart => {
+export const addToCartSuccess = (newCart: Cart): AddToCartSuccessAction => {
+  return { type: ADD_TO_CART_SUCCESS, newCart };
+};
+
+export const addToCartError = (): AddToCartErrorAction => {
+  return { type: ADD_TO_CART_ERROR };
+};
+
+const initialState: CartState = {
+  cart: {
+    id: "",
+    created: 0,
+    expires: 0,
+    updated: 0,
+    total_items: 0,
+    total_unique_items: 0,
+    currency: { symbol: "", code: "" },
+    subtotal: {
+      raw: 0,
+      formatted: "",
+      formatted_with_code: "",
+      formatted_with_symbol: "",
+    },
+    discount_code: "",
+    hosted_checkout_url: "",
+    line_items: [],
+  },
+  isLoading: false,
+};
+
+export const reducer = (
+  state: CartState = initialState,
+  action: Action
+): CartState => {
   switch (action.type) {
-    case ADD_ITEM_TO_CART:
-      return { ...state, ...action.newCart };
     case INITIALIZE_CART:
-      return { ...state, ...action.cart };
+      return { ...state, cart: { ...action.cart } };
+    case ADD_TO_CART_LOADING:
+      return { ...state, isLoading: true, currentProductId: action.productId };
+    case ADD_TO_CART_SUCCESS:
+      return {
+        ...state,
+        cart: { ...action.newCart },
+        isLoading: false,
+        currentProductId: "s",
+      };
+    case ADD_TO_CART_ERROR:
+      return {
+        ...state,
+        isLoading: false,
+        currentProductId: "",
+        errorMessage: "There was an error adding your item to cart",
+      };
     default:
       return state;
   }

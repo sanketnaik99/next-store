@@ -44,7 +44,7 @@ const Navbar: React.FC<Props> = ({ isLoggedIn, currentTheme, setTheme }) => {
   const pages = isLoggedIn ? loggedInPages : loggedOutPages;
   const router = useRouter();
   const itemCount = useSelector<RootState, number>(
-    (state) => state.cart.total_items
+    (state) => state.cart.cart.total_items
   );
 
   return (
