@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import { useTheme } from "@mui/system";
 import Image from "next/image";
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../../ducks";
 import {
@@ -20,6 +20,7 @@ import {
 } from "../../../ducks/cart";
 import { commerce } from "../../../pages/_app";
 import CartItemCounter from "../CartItemCounter/CartItemCounter";
+import RemoveItemModal from "../RemoveItemModal/RemoveItemModal";
 
 interface Props {
   item: LineItem;
@@ -28,6 +29,8 @@ interface Props {
 const CartItemCard: React.FC<Props> = ({ item }) => {
   const theme = useTheme();
   const dispatch = useDispatch<AppDispatch>();
+  const [isModalOpen, setModalOpen] = useState<boolean>(false);
+
   const isLoading = useSelector<RootState, boolean>(
     (state) => state.cart.isLoading
   );
@@ -65,8 +68,16 @@ const CartItemCard: React.FC<Props> = ({ item }) => {
       });
   };
 
+  const deleteItem = () => {};
+
   return (
     <Paper>
+      <RemoveItemModal
+        isModalOpen={isModalOpen}
+        setModalOpen={() => setModalOpen(false)}
+        productName={item.name}
+        deleteItem={() => deleteItem()}
+      />
       <Grid
         container
         spacing={2}
@@ -131,7 +142,11 @@ const CartItemCard: React.FC<Props> = ({ item }) => {
                 decrement={() => decrementItemCount()}
                 isLoading={isLoading && loadingProductId === item.id}
               />
-              <IconButton color="error" size="large">
+              <IconButton
+                color="error"
+                size="large"
+                onClick={() => setModalOpen(true)}
+              >
                 <Delete />
               </IconButton>
             </Stack>
