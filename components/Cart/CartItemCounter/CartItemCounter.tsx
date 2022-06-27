@@ -1,25 +1,33 @@
 import { Add, Remove } from "@mui/icons-material";
+import { LoadingButton } from "@mui/lab";
 import { Button, ButtonGroup, Typography, useTheme } from "@mui/material";
 import React from "react";
 
 interface Props {
   itemCount?: number;
-  increment?: () => void;
-  decrement?: () => void;
+  increment: () => void;
+  decrement: () => void;
+  isLoading?: boolean;
 }
 
 const CartItemCounter: React.FC<Props> = ({
   itemCount,
   increment,
   decrement,
+  isLoading = false,
 }) => {
   const theme = useTheme();
 
   return (
     <ButtonGroup variant="contained" size="small">
-      <Button>
+      <LoadingButton
+        variant="contained"
+        loading={isLoading}
+        color="primary"
+        onClick={() => decrement()}
+      >
         <Remove />
-      </Button>
+      </LoadingButton>
       <Button variant="outlined">
         <Typography
           variant="h6"
@@ -32,9 +40,14 @@ const CartItemCounter: React.FC<Props> = ({
           {itemCount}
         </Typography>
       </Button>
-      <Button>
+      <LoadingButton
+        variant="contained"
+        loading={isLoading}
+        color="primary"
+        onClick={() => increment()}
+      >
         <Add />
-      </Button>
+      </LoadingButton>
     </ButtonGroup>
   );
 };

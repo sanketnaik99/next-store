@@ -9,6 +9,10 @@ import {
   CartState,
   InitializeCartAction,
   INITIALIZE_CART,
+  UpdateCartLoadingAction,
+  UPDATE_CART_ERROR,
+  UPDATE_CART_LOADING,
+  UPDATE_CART_SUCCESS,
 } from "./types";
 
 export const initializeCart = (cart: Cart): InitializeCartAction => {
@@ -25,6 +29,20 @@ export const addToCartSuccess = (newCart: Cart): AddToCartSuccessAction => {
 
 export const addToCartError = (): AddToCartErrorAction => {
   return { type: ADD_TO_CART_ERROR };
+};
+
+export const updateCartLoading = (
+  productId: string
+): UpdateCartLoadingAction => {
+  return { type: UPDATE_CART_LOADING, productId };
+};
+
+export const updateCartSuccess = (newCart: Cart) => {
+  return { type: UPDATE_CART_SUCCESS, newCart };
+};
+
+export const updateCartError = () => {
+  return { type: UPDATE_CART_ERROR };
 };
 
 const initialState: CartState = {
@@ -63,9 +81,29 @@ export const reducer = (
         ...state,
         cart: { ...action.newCart },
         isLoading: false,
-        currentProductId: "s",
+        currentProductId: "",
       };
     case ADD_TO_CART_ERROR:
+      return {
+        ...state,
+        isLoading: false,
+        currentProductId: "",
+        errorMessage: "There was an error adding your item to cart",
+      };
+    case UPDATE_CART_LOADING:
+      return {
+        ...state,
+        isLoading: true,
+        currentProductId: action.productId,
+      };
+    case UPDATE_CART_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        cart: action.newCart,
+        currentProductId: "",
+      };
+    case UPDATE_CART_ERROR:
       return {
         ...state,
         isLoading: false,
