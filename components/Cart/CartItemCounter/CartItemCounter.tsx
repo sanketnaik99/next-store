@@ -19,7 +19,7 @@ const CartItemCounter: React.FC<Props> = ({
   const theme = useTheme();
 
   return (
-    <ButtonGroup variant="contained" size="small">
+    <ButtonGroup variant="outlined" size="small">
       <LoadingButton
         variant="contained"
         loading={isLoading}
@@ -34,7 +34,9 @@ const CartItemCounter: React.FC<Props> = ({
           component="h6"
           sx={{
             fontWeight: 600,
-            color: theme.palette.primary.contrastText,
+            color: theme.palette.getContrastText(
+              theme.palette.background.default
+            ),
           }}
         >
           {itemCount}
