@@ -18,11 +18,18 @@ import Image from "next/image";
 import React from "react";
 import { useSelector } from "react-redux";
 import CartItemCard from "../components/Cart/CartItemCard/CartItemCard";
+import SkeletonCard from "../components/Cart/SkeletonCard/SkeletonCard";
 import { RootState } from "../ducks";
 
 const Cart: NextPage = () => {
   const cartItems = useSelector<RootState, LineItem[]>(
     (state) => state.cart.cart.line_items
+  );
+  const isRemovingItem = useSelector<RootState, boolean>(
+    (state) => state.cart.isRemovingItem
+  );
+  const removingProductId = useSelector<RootState, string | undefined>(
+    (state) => state.cart.currentProductId
   );
   const theme = useTheme();
 
@@ -39,9 +46,13 @@ const Cart: NextPage = () => {
       <Grid container sx={{ padding: 3 }}>
         <Grid item xs={12} md={8}>
           <Stack spacing={2}>
-            {cartItems.map((item) => (
-              <CartItemCard key={item.id} item={item} />
-            ))}
+            {cartItems.map((item) =>
+              isRemovingItem && item.id === removingProductId ? (
+                <SkeletonCard />
+              ) : (
+                <CartItemCard key={item.id} item={item} />
+              )
+            )}
           </Stack>
         </Grid>
         <Grid

@@ -14,6 +14,9 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../../ducks";
 import {
+  removeItemError,
+  removeItemLoading,
+  removeItemSuccess,
   updateCartError,
   updateCartLoading,
   updateCartSuccess,
@@ -54,6 +57,9 @@ const CartItemCard: React.FC<Props> = ({ item }) => {
   };
 
   const decrementItemCount = () => {
+    if (item.quantity === 1) {
+      return deleteItem();
+    }
     // Set Loading
     dispatch(updateCartLoading(item.id));
     commerce.cart
@@ -68,7 +74,19 @@ const CartItemCard: React.FC<Props> = ({ item }) => {
       });
   };
 
-  const deleteItem = () => {};
+  const deleteItem = () => {
+    dispatch(removeItemLoading(item.id));
+    commerce.cart
+      .update(item.id, { quantity: 0 })
+      .then((res) => {
+        const newCart = res.cart;
+        dispatch(removeItemSuccess(newCart));
+      })
+      .catch((err) => {
+        console.log(err);
+        dispatch(removeItemError());
+      });
+  };
 
   return (
     <Paper>

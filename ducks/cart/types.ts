@@ -7,6 +7,9 @@ export const INITIALIZE_CART = "next-ecommerce/cart/INITIALIZE_CART";
 export const UPDATE_CART_LOADING = "next-ecommerce/cart/UPDATE_CART_LOADING";
 export const UPDATE_CART_SUCCESS = "next-ecommerce/cart/UPDATE_CART_SUCCESS";
 export const UPDATE_CART_ERROR = "next-ecommerce/cart/UPDATE_CART_ERROR";
+export const REMOVE_ITEM_LOADING = "next-ecommerce/cart/REMOVE_ITEM_LOADING";
+export const REMOVE_ITEM_SUCCESS = "next-ecommerce/cart/REMOVE_ITEM_SUCCESS";
+export const REMOVE_ITEM_ERROR = "next-ecommerce/cart/REMOVE_ITEM_ERROR";
 
 export type Action =
   | InitializeCartAction
@@ -15,7 +18,10 @@ export type Action =
   | AddToCartErrorAction
   | UpdateCartLoadingAction
   | UpdateCartSuccessAction
-  | UpdateCartErrorAction;
+  | UpdateCartErrorAction
+  | RemoveItemLoadingAction
+  | RemoveItemSuccessAction
+  | RemoveItemErrorAction;
 
 export interface AddToCartLoadingAction {
   readonly type: typeof ADD_TO_CART_LOADING;
@@ -50,9 +56,24 @@ export interface UpdateCartErrorAction {
   readonly type: typeof UPDATE_CART_ERROR;
 }
 
+export interface RemoveItemLoadingAction {
+  readonly type: typeof REMOVE_ITEM_LOADING;
+  productId: string;
+}
+
+export interface RemoveItemSuccessAction {
+  readonly type: typeof REMOVE_ITEM_SUCCESS;
+  newCart: Cart;
+}
+
+export interface RemoveItemErrorAction {
+  readonly type: typeof REMOVE_ITEM_ERROR;
+}
+
 export interface CartState {
   cart: Cart;
   isLoading: boolean;
   errorMessage?: string;
   currentProductId?: string;
+  isRemovingItem: boolean;
 }
