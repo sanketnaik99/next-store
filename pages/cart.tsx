@@ -31,6 +31,9 @@ const Cart: NextPage = () => {
   const removingProductId = useSelector<RootState, string | undefined>(
     (state) => state.cart.currentProductId
   );
+  const cartSubtotal = useSelector<RootState, string | undefined>(
+    (state) => state.cart.cart.subtotal.formatted_with_symbol
+  );
   const theme = useTheme();
 
   return (
@@ -44,7 +47,7 @@ const Cart: NextPage = () => {
         </Typography>
       </Grid>
       <Grid container sx={{ padding: 3 }}>
-        <Grid item xs={12} md={8}>
+        <Grid item xs={12} md={7}>
           <Stack spacing={2}>
             {cartItems.map((item) =>
               isRemovingItem && item.id === removingProductId ? (
@@ -76,8 +79,38 @@ const Cart: NextPage = () => {
         >
           <Divider orientation="vertical" variant="middle" />
         </Grid>
-        <Grid item xs={12} md={3}>
-          <Box height={500}></Box>
+        <Grid item xs={12} md={4}>
+          <Typography variant="h4" component="h4" sx={{ fontWeight: 600 }}>
+            Cart Summary
+          </Typography>
+          <Stack spacing={1}>
+            <Stack
+              direction="row"
+              justifyContent="space-between"
+              sx={{ marginTop: "1.5rem" }}
+            >
+              <Typography sx={{ fontWeight: 600 }}>Subtotal</Typography>
+              <Typography>{cartSubtotal ?? "$0.0"}</Typography>
+            </Stack>
+
+            <Stack direction="row" justifyContent="space-between">
+              <Typography sx={{ fontWeight: 600 }}>Tax</Typography>
+              <Typography>$0.0</Typography>
+            </Stack>
+            <Stack direction="row" justifyContent="space-between">
+              <Typography sx={{ fontWeight: 600 }}>Shipping</Typography>
+              <Typography>$0.0</Typography>
+            </Stack>
+            <Divider />
+            <Stack direction="row" justifyContent="space-between">
+              <Typography variant="h6" component="h6" sx={{ fontWeight: 600 }}>
+                Total
+              </Typography>
+              <Typography variant="h6" component="h6">
+                {cartSubtotal ?? "$0.0"}
+              </Typography>
+            </Stack>
+          </Stack>
         </Grid>
       </Grid>
     </>

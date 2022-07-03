@@ -139,14 +139,26 @@ const CartItemCard: React.FC<Props> = ({ item }) => {
                   {item.sku}
                 </Typography>
               </Stack>
-              <Typography
-                variant="h6"
-                component="h6"
-                textAlign="center"
-                fontWeight={600}
-              >
-                {item.price.formatted_with_symbol}
-              </Typography>
+              <Stack>
+                {item.quantity > 1 ? (
+                  <Typography
+                    variant="body1"
+                    component="p"
+                    textAlign="center"
+                    fontWeight={400}
+                  >
+                    {item.price.formatted_with_symbol}
+                  </Typography>
+                ) : null}
+                <Typography
+                  variant="h6"
+                  component="h6"
+                  textAlign="center"
+                  fontWeight={600}
+                >
+                  {item.line_total.formatted_with_symbol}
+                </Typography>
+              </Stack>
             </Stack>
             <Divider sx={{ display: { xs: "flex", md: "none" } }} />
             <Stack
