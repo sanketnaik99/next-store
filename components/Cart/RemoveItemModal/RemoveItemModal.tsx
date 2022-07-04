@@ -5,6 +5,7 @@ import {
   Paper,
   Stack,
   Typography,
+  useTheme,
 } from "@mui/material";
 import React from "react";
 
@@ -21,6 +22,7 @@ const RemoveItemModal: React.FC<Props> = ({
   productName,
   deleteItem,
 }) => {
+  const theme = useTheme();
   return (
     <Modal
       open={isModalOpen}
@@ -34,7 +36,14 @@ const RemoveItemModal: React.FC<Props> = ({
           top: "50%",
           left: "50%",
           transform: "translate(-50%, -50%)",
-          p: 4,
+          [theme.breakpoints.down("md")]: {
+            minWidth: "90%",
+            padding: "1rem",
+          },
+          [theme.breakpoints.up("md")]: {
+            maxWidth: "60%",
+            p: 4,
+          },
         }}
       >
         <Typography id="modal-modal-title" variant="h6" component="h2">

@@ -1,25 +1,19 @@
 import { LineItem } from "@chec/commerce.js/types/line-item";
 import {
   Button,
-  Card,
-  CardActions,
-  CardContent,
-  CardMedia,
   Divider,
   Grid,
-  Paper,
   Stack,
   Typography,
   useTheme,
 } from "@mui/material";
-import { Box } from "@mui/system";
 import { NextPage } from "next";
-import Image from "next/image";
 import React from "react";
 import { useSelector } from "react-redux";
 import CartItemCard from "../components/Cart/CartItemCard/CartItemCard";
 import SkeletonCard from "../components/Cart/SkeletonCard/SkeletonCard";
 import { RootState } from "../ducks";
+import { useRouter } from "next/router";
 
 const Cart: NextPage = () => {
   const cartItems = useSelector<RootState, LineItem[]>(
@@ -34,7 +28,10 @@ const Cart: NextPage = () => {
   const cartSubtotal = useSelector<RootState, string | undefined>(
     (state) => state.cart.cart.subtotal.formatted_with_symbol
   );
-  const theme = useTheme();
+  const cartId = useSelector<RootState, string | undefined>(
+    (state) => state.cart.cart.id
+  );
+  const router = useRouter();
 
   return (
     <>
@@ -110,6 +107,14 @@ const Cart: NextPage = () => {
                 {cartSubtotal ?? "$0.0"}
               </Typography>
             </Stack>
+            <Button
+              variant="contained"
+              fullWidth
+              color="primary"
+              onClick={() => router.push(`/checkout/${cartId}`)}
+            >
+              Proceed to Checkout
+            </Button>
           </Stack>
         </Grid>
       </Grid>

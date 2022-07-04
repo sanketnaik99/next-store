@@ -114,7 +114,7 @@ const Navbar: React.FC<Props> = ({ isLoggedIn, currentTheme, setTheme }) => {
           <IconButton
             aria-label="Cart Button"
             color="inherit"
-            onClick={() => router.push("cart")}
+            onClick={() => router.push("/cart")}
           >
             {itemCount > 0 ? (
               <Badge color="secondary" badgeContent={itemCount}>
