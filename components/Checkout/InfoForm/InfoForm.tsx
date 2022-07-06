@@ -1,9 +1,19 @@
-import { Button, Grid, TextField } from "@mui/material";
+import { Box, Button, Grid, TextField, Typography } from "@mui/material";
 import { useFormik } from "formik";
 import React from "react";
 import validationSchema from "./types";
 
-const InfoForm = () => {
+export interface InfoValues {
+  firstName: string;
+  lastName: string;
+  email: string;
+}
+
+interface Props {
+  handleInfoSubmit: (values: InfoValues) => void;
+}
+
+const InfoForm: React.FC<Props> = ({ handleInfoSubmit }) => {
   const formik = useFormik({
     validationSchema: validationSchema,
     initialValues: {
@@ -12,12 +22,20 @@ const InfoForm = () => {
       email: "",
     },
     onSubmit: (values, helpers) => {
-      console.log(values);
+      handleInfoSubmit(values);
     },
   });
 
   return (
     <form onSubmit={formik.handleSubmit}>
+      <Box sx={{ margin: "2rem 0rem 1rem 0rem" }}>
+        <Typography variant="h5" component="h5" sx={{ fontWeight: 600 }}>
+          Contact Information
+        </Typography>
+        <Typography variant="body1" component="p" sx={{ fontWeight: 400 }}>
+          Please fill in your information below to continue.
+        </Typography>
+      </Box>
       <Grid container spacing={3}>
         <Grid item xs={12} md={6}>
           <TextField

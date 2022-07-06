@@ -96,7 +96,7 @@ const Cart: NextPage = () => {
             </Stack>
             <Stack direction="row" justifyContent="space-between">
               <Typography sx={{ fontWeight: 600 }}>Shipping</Typography>
-              <Typography>$0.0</Typography>
+              <Typography>-</Typography>
             </Stack>
             <Divider />
             <Stack direction="row" justifyContent="space-between">

@@ -14,7 +14,10 @@ import {
 } from "@mui/material";
 import { CreditCard, Description, LocalShipping } from "@mui/icons-material";
 import { Box } from "@mui/system";
-import InfoForm from "../../components/Checkout/InfoForm/InfoForm";
+import InfoForm, {
+  InfoValues,
+} from "../../components/Checkout/InfoForm/InfoForm";
+import PaymentForm from "../../components/Checkout/PaymentForm/PaymentForm";
 
 const Checkout = () => {
   const router = useRouter();
@@ -40,10 +43,21 @@ const Checkout = () => {
   //   };
   // }, [router]);
 
+  const handleInfoSubmit = (values: InfoValues) => {
+    console.log(values);
+    setActiveStep(activeStep + 1);
+  };
+
   const getStepPage = (activeStep: number) => {
     switch (activeStep) {
       case 0:
-        return <InfoForm />;
+        return (
+          <InfoForm
+            handleInfoSubmit={(values: InfoValues) => handleInfoSubmit(values)}
+          />
+        );
+      case 1:
+        return <PaymentForm />;
       default:
         return null;
     }
@@ -69,14 +83,6 @@ const Checkout = () => {
             <StepLabel>Review</StepLabel>
           </Step>
         </Stepper>
-        <Box sx={{ margin: "2rem 0rem 1rem 0rem" }}>
-          <Typography variant="h5" component="h5" sx={{ fontWeight: 600 }}>
-            Contact Information
-          </Typography>
-          <Typography variant="body1" component="p" sx={{ fontWeight: 400 }}>
-            Please fill in your information below to continue.
-          </Typography>
-        </Box>
         {getStepPage(activeStep)}
       </Paper>
     </div>
