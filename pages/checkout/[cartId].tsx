@@ -1,28 +1,17 @@
 import { useRouter } from "next/router";
-import React, { useEffect, useState } from "react";
-import { PaymentElement, Elements, CardElement } from "@stripe/react-stripe-js";
-import { loadStripe } from "@stripe/stripe-js";
-import {
-  Button,
-  Grid,
-  Paper,
-  Step,
-  StepLabel,
-  Stepper,
-  TextField,
-  Typography,
-} from "@mui/material";
-import { CreditCard, Description, LocalShipping } from "@mui/icons-material";
-import { Box } from "@mui/system";
+import React, { useState } from "react";
+import { Paper, Step, StepLabel, Stepper } from "@mui/material";
 import InfoForm, {
   InfoValues,
 } from "../../components/Checkout/InfoForm/InfoForm";
 import PaymentForm from "../../components/Checkout/PaymentForm/PaymentForm";
+import ReviewStep from "../../components/Checkout/ReviewStep/ReviewStep";
 
 export interface CheckoutData {
   firstName: string;
   lastName: string;
   email: string;
+  coffeeAmount: number;
 }
 
 const Checkout = () => {
@@ -33,11 +22,8 @@ const Checkout = () => {
     firstName: "",
     lastName: "",
     email: "",
+    coffeeAmount: 0,
   });
-
-  const stripePromise = loadStripe(
-    process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY ?? ""
-  );
 
   // useEffect(() => {
   //   router.beforePopState(({ as }) => {
@@ -76,8 +62,15 @@ const Checkout = () => {
         );
       case 1:
         return (
-          <PaymentForm activeStep={activeStep} setActiveStep={setActiveStep} />
+          <PaymentForm
+            activeStep={activeStep}
+            setActiveStep={setActiveStep}
+            data={data}
+            setData={setData}
+          />
         );
+      case 2:
+        return <ReviewStep data={data} />;
       default:
         return null;
     }

@@ -1,31 +1,52 @@
 import { Price } from "@chec/commerce.js/types/price";
-import { Coffee } from "@mui/icons-material";
+import { Coffee, Edit } from "@mui/icons-material";
 import {
   Box,
   Button,
   Divider,
   Grid,
+  IconButton,
+  Paper,
   Stack,
-  TextField,
   Typography,
+  useTheme,
 } from "@mui/material";
+import {
+  CardElement,
+  Elements,
+  ElementsConsumer,
+} from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
 import Image from "next/image";
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../ducks";
+import { CheckoutData } from "../../../pages/checkout/[cartId]";
 import BuyCoffeeModal from "../BuyCoffeeModal/BuyCoffeeModal";
 
 interface Props {
   activeStep: number;
   setActiveStep: (newStep: number) => void;
+  data: CheckoutData;
+  setData: (data: CheckoutData) => void;
 }
 
-const PaymentForm: React.FC<Props> = ({ activeStep, setActiveStep }) => {
+const PaymentForm: React.FC<Props> = ({
+  activeStep,
+  setActiveStep,
+  data,
+  setData,
+}) => {
   const { formatted, formatted_with_symbol, formatted_with_code, raw } =
     useSelector<RootState, Price>((state) => state.cart.cart.subtotal);
 
-  const [coffeeAmount, setCoffeeAmount] = useState<number>(0);
+  const stripePromise = loadStripe(
+    process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY ?? ""
+  );
+
+  const [coffeeAmount, setCoffeeAmount] = useState<number>(data.coffeeAmount);
   const [isModalOpen, setModalOpen] = useState<boolean>(false);
+  const theme = useTheme();
 
   return (
     <>
@@ -33,7 +54,10 @@ const PaymentForm: React.FC<Props> = ({ activeStep, setActiveStep }) => {
         isModalOpen={isModalOpen}
         closeModal={() => setModalOpen(false)}
         coffeeAmount={coffeeAmount}
-        setCoffeeAmount={(amount: number) => setCoffeeAmount(amount)}
+        setCoffeeAmount={(amount: number) => {
+          setCoffeeAmount(amount);
+          setData({ ...data, coffeeAmount: amount });
+        }}
       />
       <Box sx={{ margin: "2rem 0rem 1rem 0rem" }}>
         <Typography variant="h5" component="h5" sx={{ fontWeight: 600 }}>
@@ -45,7 +69,7 @@ const PaymentForm: React.FC<Props> = ({ activeStep, setActiveStep }) => {
       </Box>
       <Grid container spacing={2}>
         <Grid item xs={12} md={7} justifyContent="center">
-          {raw === 0 ? (
+          {raw === 0 && coffeeAmount === 0 ? (
             <Stack
               justifyContent="center"
               alignItems="center"
@@ -84,7 +108,46 @@ const PaymentForm: React.FC<Props> = ({ activeStep, setActiveStep }) => {
               </Button>
             </Stack>
           ) : (
-            <>Pay Please</>
+            <>
+              <Elements stripe={stripePromise}>
+                <ElementsConsumer>
+                  {({ elements, stripe }) => (
+                    <form>
+                      <Box
+                        sx={{
+                          backgroundColor: theme.palette.background.paper,
+                          padding: "1.3rem",
+                          borderRadius: "0.5rem",
+                        }}
+                      >
+                        <CardElement
+                          options={{
+                            style: {
+                              base: {
+                                color: theme.palette.getContrastText(
+                                  theme.palette.background.paper
+                                ),
+                                iconColor: theme.palette.getContrastText(
+                                  theme.palette.background.paper
+                                ),
+                                fontFamily: "Arial, sans-serif",
+                                fontSmoothing: "antialiased",
+                                fontSize: "16px",
+                                "::placeholder": {
+                                  color: theme.palette.getContrastText(
+                                    theme.palette.background.paper
+                                  ),
+                                },
+                              },
+                            },
+                          }}
+                        />
+                      </Box>
+                    </form>
+                  )}
+                </ElementsConsumer>
+              </Elements>
+            </>
           )}
         </Grid>
         <Grid item xs={12} md={1}>
@@ -106,14 +169,19 @@ const PaymentForm: React.FC<Props> = ({ activeStep, setActiveStep }) => {
             {coffeeAmount > 0 ? (
               <>
                 <Stack direction="row" justifyContent="space-between">
-                  <Typography variant="h6" sx={{ fontWeight: 500 }}>
-                    Coffee
-                  </Typography>
+                  <Stack direction="row" alignItems="center" spacing={1}>
+                    <Typography variant="h6" sx={{ fontWeight: 500 }}>
+                      Coffee
+                    </Typography>
+                    <IconButton onClick={() => setModalOpen(true)}>
+                      <Edit />
+                    </IconButton>
+                  </Stack>
                   <Typography variant="h6">
                     ${coffeeAmount.toFixed(2)}
                   </Typography>
                 </Stack>
-                <Divider />
+                {coffeeAmount > 0 ? <Divider /> : null}
                 <Stack direction="row" justifyContent="space-between">
                   <Typography variant="h5" sx={{ fontWeight: 600 }}>
                     Total
@@ -137,7 +205,14 @@ const PaymentForm: React.FC<Props> = ({ activeStep, setActiveStep }) => {
             </Button>
           </Grid>
           <Grid item xs={6} md={3}>
-            <Button variant="contained" fullWidth type="submit">
+            <Button
+              variant="contained"
+              fullWidth
+              onClick={() => {
+                console.log("active Step", activeStep);
+                setActiveStep(activeStep + 1);
+              }}
+            >
               Next
             </Button>
           </Grid>
