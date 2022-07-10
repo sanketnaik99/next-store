@@ -111,6 +111,14 @@ const BuyCoffeeModal: React.FC<Props> = ({
           <Button color="error" variant="contained" onClick={closeModal}>
             Close
           </Button>
+          <Button
+            color="success"
+            variant="contained"
+            disabled={coffeeAmount <= 0}
+            onClick={closeModal}
+          >
+            Done
+          </Button>
         </Stack>
       </Paper>
     </Modal>

@@ -1,6 +1,7 @@
 import { Box, Button, Grid, TextField, Typography } from "@mui/material";
 import { useFormik } from "formik";
 import React from "react";
+import { CheckoutData } from "../../../pages/checkout/[cartId]";
 import validationSchema from "./types";
 
 export interface InfoValues {
@@ -10,16 +11,17 @@ export interface InfoValues {
 }
 
 interface Props {
+  initialData: CheckoutData;
   handleInfoSubmit: (values: InfoValues) => void;
 }
 
-const InfoForm: React.FC<Props> = ({ handleInfoSubmit }) => {
+const InfoForm: React.FC<Props> = ({ handleInfoSubmit, initialData }) => {
   const formik = useFormik({
     validationSchema: validationSchema,
     initialValues: {
-      firstName: "",
-      lastName: "",
-      email: "",
+      firstName: initialData.firstName,
+      lastName: initialData.lastName,
+      email: initialData.email,
     },
     onSubmit: (values, helpers) => {
       handleInfoSubmit(values);

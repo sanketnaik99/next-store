@@ -19,10 +19,21 @@ import InfoForm, {
 } from "../../components/Checkout/InfoForm/InfoForm";
 import PaymentForm from "../../components/Checkout/PaymentForm/PaymentForm";
 
+export interface CheckoutData {
+  firstName: string;
+  lastName: string;
+  email: string;
+}
+
 const Checkout = () => {
   const router = useRouter();
   const { cartId } = router.query;
   const [activeStep, setActiveStep] = useState(0);
+  const [data, setData] = useState<CheckoutData>({
+    firstName: "",
+    lastName: "",
+    email: "",
+  });
 
   const stripePromise = loadStripe(
     process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY ?? ""
@@ -45,6 +56,12 @@ const Checkout = () => {
 
   const handleInfoSubmit = (values: InfoValues) => {
     console.log(values);
+    setData({
+      ...data,
+      firstName: values.firstName,
+      lastName: values.lastName,
+      email: values.email,
+    });
     setActiveStep(activeStep + 1);
   };
 
@@ -53,11 +70,14 @@ const Checkout = () => {
       case 0:
         return (
           <InfoForm
+            initialData={data}
             handleInfoSubmit={(values: InfoValues) => handleInfoSubmit(values)}
           />
         );
       case 1:
-        return <PaymentForm />;
+        return (
+          <PaymentForm activeStep={activeStep} setActiveStep={setActiveStep} />
+        );
       default:
         return null;
     }
