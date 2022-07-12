@@ -1,9 +1,10 @@
 import { Price } from "@chec/commerce.js/types/price";
-import { Divider, Grid, Stack, Typography } from "@mui/material";
+import { Box, Button, Divider, Grid, Stack, Typography } from "@mui/material";
 import React from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../ducks";
 import { CheckoutData } from "../../../pages/checkout/[cartId]";
+import { commerce } from "../../../pages/_app";
 
 interface Props {
   data: CheckoutData;
@@ -12,6 +13,34 @@ interface Props {
 const ReviewStep: React.FC<Props> = ({ data }) => {
   const { formatted, formatted_with_symbol, formatted_with_code, raw } =
     useSelector<RootState, Price>((state) => state.cart.cart.subtotal);
+  const cartItems = useSelector<RootState>(
+    (state) => state.cart.cart.line_items
+  );
+  const cartID = useSelector<RootState, string>((state) => state.cart.cart.id);
+
+  const handleConfirmOrder = async () => {
+    const token = await commerce.checkout.generateToken(cartID, {
+      type: "cart",
+    });
+
+    console.log(token);
+
+    const checkout = commerce.checkout
+      .capture(token.id, {
+        line_items: cartItems,
+        customer: {
+          firstname: data.firstName,
+          lastname: data.lastName,
+          email: data.email,
+        },
+        pay_what_you_want: "0.0",
+        payment: {
+          gateway: "stripe",
+        },
+      })
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
+  };
 
   return (
     <>
@@ -105,6 +134,15 @@ const ReviewStep: React.FC<Props> = ({ data }) => {
             </Stack>
           </>
         ) : null}
+        <Box sx={{ paddingTop: "2rem" }}></Box>
+        <Button
+          fullWidth
+          size="large"
+          variant="contained"
+          onClick={handleConfirmOrder}
+        >
+          Confirm Order
+        </Button>
       </Stack>
     </>
   );
