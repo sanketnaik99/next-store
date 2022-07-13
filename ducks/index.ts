@@ -1,7 +1,8 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import cart from "./cart";
+import checkout from "./checkout";
 
-const reducers = combineReducers({ cart });
+const reducers = combineReducers({ cart, checkout });
 
 export const store = configureStore({
   reducer: reducers,

@@ -1,8 +1,23 @@
 import { Price } from "@chec/commerce.js/types/price";
-import { Box, Button, Divider, Grid, Stack, Typography } from "@mui/material";
+import { LoadingButton } from "@mui/lab";
+import {
+  Alert,
+  Box,
+  Button,
+  Divider,
+  Grid,
+  Slide,
+  Stack,
+  Typography,
+} from "@mui/material";
 import React from "react";
-import { useSelector } from "react-redux";
-import { RootState } from "../../../ducks";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../../ducks";
+import {
+  generateCheckoutTokenError,
+  generateCheckoutTokenLoading,
+  resetCheckoutError,
+} from "../../../ducks/checkout";
 import { CheckoutData } from "../../../pages/checkout/[cartId]";
 import { commerce } from "../../../pages/_app";
 
@@ -17,33 +32,61 @@ const ReviewStep: React.FC<Props> = ({ data }) => {
     (state) => state.cart.cart.line_items
   );
   const cartID = useSelector<RootState, string>((state) => state.cart.cart.id);
+  const checkoutLoading = useSelector<RootState, boolean>(
+    (state) => state.checkout.isLoading
+  );
+  const errorMessage = useSelector<RootState, string>(
+    (state) => state.checkout.errorMessage ?? ""
+  );
+
+  const dispatch = useDispatch<AppDispatch>();
 
   const handleConfirmOrder = async () => {
-    const token = await commerce.checkout.generateToken(cartID, {
-      type: "cart",
-    });
+    dispatch(generateCheckoutTokenLoading());
 
-    console.log(token);
+    try {
+      const token = await commerce.checkout.generateToken(cartID, {
+        type: "cart",
+      });
+      console.log(token);
+    } catch (err: any) {
+      console.log(err);
+      dispatch(generateCheckoutTokenError(`${err?.data?.error?.message}`));
+      setTimeout(() => {
+        dispatch(resetCheckoutError());
+      }, 4000);
+    }
 
-    const checkout = commerce.checkout
-      .capture(token.id, {
-        line_items: cartItems,
-        customer: {
-          firstname: data.firstName,
-          lastname: data.lastName,
-          email: data.email,
-        },
-        pay_what_you_want: "0.0",
-        payment: {
-          gateway: "stripe",
-        },
-      })
-      .then((res) => console.log(res))
-      .catch((err) => console.log(err));
+    // const checkout = commerce.checkout
+    //   .capture(token.id, {
+    //     line_items: cartItems,
+    //     customer: {
+    //       firstname: data.firstName,
+    //       lastname: data.lastName,
+    //       email: data.email,
+    //     },
+    //     pay_what_you_want: "0.0",
+    //     payment: {
+    //       gateway: "stripe",
+    //     },
+    //   })
+    //   .then((res) => console.log(res))
+    //   .catch((err) => console.log(err));
   };
 
   return (
     <>
+      {errorMessage ? (
+        <Slide direction="left" in={errorMessage !== ""}>
+          <Alert
+            variant="filled"
+            severity="error"
+            sx={{ position: "fixed", top: "6rem", right: "1rem" }}
+          >
+            {errorMessage}
+          </Alert>
+        </Slide>
+      ) : null}
       <Stack
         spacing={1}
         sx={{
@@ -135,14 +178,15 @@ const ReviewStep: React.FC<Props> = ({ data }) => {
           </>
         ) : null}
         <Box sx={{ paddingTop: "2rem" }}></Box>
-        <Button
+        <LoadingButton
           fullWidth
           size="large"
           variant="contained"
           onClick={handleConfirmOrder}
+          loading={checkoutLoading}
         >
           Confirm Order
-        </Button>
+        </LoadingButton>
       </Stack>
     </>
   );
