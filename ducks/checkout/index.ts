@@ -1,9 +1,15 @@
+import { CheckoutCaptureResponse } from "@chec/commerce.js/types/checkout-capture-response";
 import { CheckoutToken } from "@chec/commerce.js/types/checkout-token";
 import {
   Action,
+  CaptureOrderErrorAction,
+  CaptureOrderSuccessAction,
+  CAPTURE_ORDER_ERROR,
+  CAPTURE_ORDER_SUCCESS,
   CheckoutState,
   GenerateCheckoutTokenErrorAction,
   GenerateCheckoutTokenLoadingAction,
+  GenerateCheckoutTokenSuccessAction,
   GENERATE_CHECKOUT_TOKEN_ERROR,
   GENERATE_CHECKOUT_TOKEN_LOADING,
   GENERATE_CHECKOUT_TOKEN_SUCCESS,
@@ -15,7 +21,9 @@ export const generateCheckoutTokenLoading =
     return { type: GENERATE_CHECKOUT_TOKEN_LOADING };
   };
 
-export const generateCheckoutTokenSuccess = (checkoutToken: CheckoutToken) => {
+export const generateCheckoutTokenSuccess = (
+  checkoutToken: CheckoutToken
+): GenerateCheckoutTokenSuccessAction => {
   return { type: GENERATE_CHECKOUT_TOKEN_SUCCESS, checkoutToken };
 };
 
@@ -27,6 +35,18 @@ export const generateCheckoutTokenError = (
 
 export const resetCheckoutError = () => {
   return { type: RESET_CHECKOUT_ERROR };
+};
+
+export const captureOrderSuccess = (
+  checkoutResponse: CheckoutCaptureResponse
+): CaptureOrderSuccessAction => {
+  return { type: CAPTURE_ORDER_SUCCESS, checkoutResponse };
+};
+
+export const captureOrderError = (
+  errorMessage: string
+): CaptureOrderErrorAction => {
+  return { type: CAPTURE_ORDER_ERROR, errorMessage };
 };
 
 const initialState: CheckoutState = {
@@ -59,6 +79,18 @@ export const reducer = (
       return {
         ...state,
         errorMessage: "",
+      };
+    case CAPTURE_ORDER_SUCCESS:
+      return {
+        ...state,
+        checkoutResponse: action.checkoutResponse,
+        isLoading: false,
+      };
+    case CAPTURE_ORDER_ERROR:
+      return {
+        ...state,
+        errorMessage: action.errorMessage,
+        isLoading: false,
       };
     default:
       return state;

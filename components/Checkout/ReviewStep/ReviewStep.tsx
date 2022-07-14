@@ -10,10 +10,13 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
+import { useRouter } from "next/router";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../../ducks";
 import {
+  captureOrderError,
+  captureOrderSuccess,
   generateCheckoutTokenError,
   generateCheckoutTokenLoading,
   resetCheckoutError,
@@ -40,6 +43,7 @@ const ReviewStep: React.FC<Props> = ({ data }) => {
   );
 
   const dispatch = useDispatch<AppDispatch>();
+  const router = useRouter();
 
   const handleConfirmOrder = async () => {
     dispatch(generateCheckoutTokenLoading());
@@ -49,6 +53,25 @@ const ReviewStep: React.FC<Props> = ({ data }) => {
         type: "cart",
       });
       console.log(token);
+      try {
+        const checkout = await commerce.checkout.capture(token.id, {
+          line_items: cartItems,
+          customer: {
+            firstname: data.firstName,
+            lastname: data.lastName,
+            email: data.email,
+          },
+          pay_what_you_want: data.coffeeAmount.toFixed(2).toString(),
+          payment: {
+            gateway: "stripe",
+          },
+        });
+        console.log(JSON.stringify(checkout));
+        dispatch(captureOrderSuccess(checkout));
+        // router.push(`/checkout/success/${checkout.id}`);
+      } catch (err: any) {
+        dispatch(captureOrderError(`${err?.data?.error?.message}`));
+      }
     } catch (err: any) {
       console.log(err);
       dispatch(generateCheckoutTokenError(`${err?.data?.error?.message}`));
@@ -56,22 +79,6 @@ const ReviewStep: React.FC<Props> = ({ data }) => {
         dispatch(resetCheckoutError());
       }, 4000);
     }
-
-    // const checkout = commerce.checkout
-    //   .capture(token.id, {
-    //     line_items: cartItems,
-    //     customer: {
-    //       firstname: data.firstName,
-    //       lastname: data.lastName,
-    //       email: data.email,
-    //     },
-    //     pay_what_you_want: "0.0",
-    //     payment: {
-    //       gateway: "stripe",
-    //     },
-    //   })
-    //   .then((res) => console.log(res))
-    //   .catch((err) => console.log(err));
   };
 
   return (
