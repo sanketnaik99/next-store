@@ -1,10 +1,17 @@
 import { Grid, Typography } from "@mui/material";
 import React from "react";
 import { useSelector } from "react-redux";
+import DownloadCard from "../../../components/Checkout/DownloadCard/DownloadCard";
 import { RootState } from "../../../ducks";
+import { Download, LineItem } from "../../../ducks/checkout/types";
 
 const CheckoutSuccess = () => {
-  // const items = useSelector<RootState>(state => state.checkout.checkoutResponse)
+  const items = useSelector<RootState, LineItem[] | undefined>(
+    (state) => state.checkout.checkoutResponse?.order?.line_items
+  );
+  const digitalDownloads = useSelector<RootState, Download[] | undefined>(
+    (state) => state.checkout.checkoutResponse?.fulfillment?.digital.downloads
+  );
 
   return (
     <>
@@ -17,8 +24,28 @@ const CheckoutSuccess = () => {
           below or visit the orders page to view all orders.
         </Typography>
       </Grid>
-      <Grid container sx={{ marginTop: "3rem" }} spacing={2}>
-        <Grid></Grid>
+      <Grid
+        container
+        sx={{ paddingLeft: 3, paddingRight: 3, marginBottom: 5 }}
+        spacing={3}
+      >
+        {items &&
+          items.map((item, index) => {
+            return (
+              <Grid item key={item.id + index} md={4} xs={12}>
+                <DownloadCard
+                  key={item.id + index}
+                  item={item}
+                  download={
+                    digitalDownloads?.find(
+                      (download) =>
+                        download.product_id.toString() === item.product_id
+                    ) ?? null
+                  }
+                />
+              </Grid>
+            );
+          })}
       </Grid>
     </>
   );

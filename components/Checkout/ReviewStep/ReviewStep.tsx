@@ -21,6 +21,7 @@ import {
   generateCheckoutTokenLoading,
   resetCheckoutError,
 } from "../../../ducks/checkout";
+import { CheckoutResponseData } from "../../../ducks/checkout/types";
 import { CheckoutData } from "../../../pages/checkout/[cartId]";
 import { commerce } from "../../../pages/_app";
 
@@ -66,9 +67,8 @@ const ReviewStep: React.FC<Props> = ({ data }) => {
             gateway: "stripe",
           },
         });
-        console.log(JSON.stringify(checkout));
-        dispatch(captureOrderSuccess(checkout));
-        // router.push(`/checkout/success/${checkout.id}`);
+        dispatch(captureOrderSuccess(checkout as CheckoutResponseData));
+        router.push(`/checkout/success/${checkout.id}`);
       } catch (err: any) {
         dispatch(captureOrderError(`${err?.data?.error?.message}`));
       }
