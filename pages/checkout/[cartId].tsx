@@ -12,6 +12,7 @@ export interface CheckoutData {
   lastName: string;
   email: string;
   coffeeAmount: number;
+  paymentID?: string;
 }
 
 const Checkout = () => {

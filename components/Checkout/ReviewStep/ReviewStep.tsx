@@ -65,11 +65,15 @@ const ReviewStep: React.FC<Props> = ({ data }) => {
           pay_what_you_want: data.coffeeAmount.toFixed(2).toString(),
           payment: {
             gateway: "stripe",
+            ...(data.paymentID && {
+              stripe: { payment_method_id: data.paymentID },
+            }),
           },
         });
         dispatch(captureOrderSuccess(checkout as CheckoutResponseData));
         router.push(`/checkout/success/${checkout.id}`);
       } catch (err: any) {
+        console.log(err);
         dispatch(captureOrderError(`${err?.data?.error?.message}`));
       }
     } catch (err: any) {
