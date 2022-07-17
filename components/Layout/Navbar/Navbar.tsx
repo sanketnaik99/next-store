@@ -18,7 +18,7 @@ import Link from "next/link";
 import React, { useState } from "react";
 import SideDrawer from "../SideDrawer/SideDrawer";
 import { NavbarButton } from "./types";
-import Logo from "../../../public/assets/store-logo.png";
+import Logo from "../../../public/assets/store-logo.svg";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
@@ -53,13 +53,7 @@ const Navbar: React.FC<Props> = ({ isLoggedIn, currentTheme, setTheme }) => {
         <Toolbar disableGutters>
           <Box sx={{ display: { xs: "none", md: "flex" }, cursor: "pointer" }}>
             <Link href="/">
-              <Image
-                src={Logo}
-                height={50}
-                width={200}
-                alt="Photo Shop Logo"
-                placeholder="blur"
-              />
+              <Image src={Logo} height={50} width={150} alt="Store Logo" />
             </Link>
           </Box>
           <Box sx={{ display: { xs: "flex", md: "none" } }}>
@@ -87,13 +81,7 @@ const Navbar: React.FC<Props> = ({ isLoggedIn, currentTheme, setTheme }) => {
             }}
           >
             <Link href="/">
-              <Image
-                src={Logo}
-                height={50}
-                width={200}
-                alt="Photo Shop Logo"
-                placeholder="blur"
-              />
+              <Image src={Logo} height={50} width={150} alt="Store Logo" />
             </Link>
           </Box>
           <Box
