@@ -10,6 +10,7 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
+import { loadStripe } from "@stripe/stripe-js";
 import { useRouter } from "next/router";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -45,6 +46,9 @@ const ReviewStep: React.FC<Props> = ({ data }) => {
 
   const dispatch = useDispatch<AppDispatch>();
   const router = useRouter();
+  const stripePromise = loadStripe(
+    process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY ?? ""
+  );
 
   const handleConfirmOrder = async () => {
     dispatch(generateCheckoutTokenLoading());
@@ -74,7 +78,45 @@ const ReviewStep: React.FC<Props> = ({ data }) => {
         router.push(`/checkout/success/${checkout.id}`);
       } catch (err: any) {
         console.log(err);
-        dispatch(captureOrderError(`${err?.data?.error?.message}`));
+        if (
+          err.statusCode !== 402 ||
+          err.data.error.type !== "requires_verification"
+        ) {
+          dispatch(captureOrderError(`${err?.data?.error?.message}`));
+        }
+        // Get Stripe
+        const stripe = await stripePromise;
+        if (!stripe)
+          dispatch(captureOrderError(`${err?.data?.error?.message}`));
+        // Stripe will show modal for further authentication
+        const cardActionResult = await stripe?.handleCardAction(
+          err.data.error.param
+        );
+        if (cardActionResult && cardActionResult.error) {
+          dispatch(captureOrderError(`${cardActionResult?.error?.message}`));
+          return;
+        }
+
+        // Try to Capture order again
+        try {
+          const checkout = await commerce.checkout.capture(token.id, {
+            line_items: cartItems,
+            customer: {
+              firstname: data.firstName,
+              lastname: data.lastName,
+              email: data.email,
+            },
+            pay_what_you_want: data.coffeeAmount.toFixed(2).toString(),
+            payment: {
+              gateway: "stripe",
+              stripe: { payment_intent_id: cardActionResult?.paymentIntent.id },
+            },
+          });
+          dispatch(captureOrderSuccess(checkout as CheckoutResponseData));
+          router.push(`/checkout/success/${checkout.id}`);
+        } catch (err: any) {
+          dispatch(captureOrderError(`${err?.data?.error?.message}`));
+        }
       }
     } catch (err: any) {
       console.log(err);
