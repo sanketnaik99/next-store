@@ -5,10 +5,21 @@ import { commerce } from "../../../pages/_app";
 import { validationSchema } from "./types";
 
 const SignInForm = () => {
+  const getCallbackURL = (): string => {
+    switch (process.env.NEXT_PUBLIC_ENVIRONMENT) {
+      case "local":
+        return "https://localhost:3000/sign-in/callback";
+      case "production":
+        return "https://store.sanketnaik.dev/sign-in/callback";
+      default:
+        return "https://localhost:3000/sign-in/callback";
+    }
+  };
+
   const submitForm = async (values: { email: string }) => {
     console.log("Calling commerce");
     commerce.customer
-      .login(values.email, "https://localhost:3000/sign-in/callback")
+      .login(values.email, getCallbackURL())
       .then((res) => console.log(res))
       .catch((err) => console.log(err));
   };
