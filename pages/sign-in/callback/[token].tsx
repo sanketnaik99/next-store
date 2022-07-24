@@ -19,7 +19,6 @@ import Image from "next/image";
 
 const SignInWithToken = () => {
   const router = useRouter();
-  const query = router.query;
   const dispatch = useDispatch();
   const isLoading = useSelector<RootState>((state) => state.user.isLoading);
   const errorMessage = useSelector<RootState>(
@@ -58,6 +57,7 @@ const SignInWithToken = () => {
     if (router.query.token) {
       handleUserSignIn(router.query.token.toString());
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router.query]);
 
   return (
@@ -83,7 +83,7 @@ const SignInWithToken = () => {
             </Stack>
           </Grid>
         </Grid>
-      ) : !isLoading && errorMessage === "" ? (
+      ) : !isLoading && errorMessage !== "" ? (
         <Grid
           container
           justifyContent="center"

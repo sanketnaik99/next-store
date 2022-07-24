@@ -64,7 +64,6 @@ const Layout: React.FC<Props> = ({ children }) => {
       <ThemeProvider theme={currentTheme === "light" ? lightTheme : darkTheme}>
         <CssBaseline />
         <Navbar
-          isLoggedIn={isLoggedIn}
           setTheme={(theme: string) => setTheme(theme)}
           currentTheme={currentTheme}
         />

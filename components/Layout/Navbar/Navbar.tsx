@@ -25,7 +25,8 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../../ducks";
 
 const loggedInPages: NavbarButton[] = [
-  { title: "Cart", link: "/cart" },
+  { title: "Orders", link: "/orders" },
+  { title: "Profile", link: "/profile" },
   { title: "Home", link: "/" },
 ];
 const loggedOutPages: NavbarButton[] = [
@@ -34,18 +35,20 @@ const loggedOutPages: NavbarButton[] = [
 ];
 
 interface Props {
-  isLoggedIn: boolean;
   setTheme: (theme: string) => void;
   currentTheme: string;
 }
 
-const Navbar: React.FC<Props> = ({ isLoggedIn, currentTheme, setTheme }) => {
+const Navbar: React.FC<Props> = ({ currentTheme, setTheme }) => {
   const [isDrawerOpen, setDrawerOpen] = useState(false);
-  const pages = isLoggedIn ? loggedInPages : loggedOutPages;
   const router = useRouter();
   const itemCount = useSelector<RootState, number>(
     (state) => state.cart.cart.total_items
   );
+  const isLoggedIn = useSelector<RootState, boolean>(
+    (state) => state.user.isLoggedIn
+  );
+  const pages = isLoggedIn ? loggedInPages : loggedOutPages;
 
   return (
     <AppBar position="sticky" enableColorOnDark>
