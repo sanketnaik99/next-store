@@ -16,8 +16,13 @@ import { commerce } from "../../_app";
 import HelloImage from "../../../public/assets/hello.png";
 import ErrorImage from "../../../public/assets/error.png";
 import Image from "next/image";
+import { GetServerSideProps, GetServerSidePropsContext } from "next";
 
-const SignInWithToken = () => {
+interface Props {
+  token: string;
+}
+
+const SignInWithToken: React.FC<Props> = ({ token }) => {
   const router = useRouter();
   const dispatch = useDispatch();
   const isLoading = useSelector<RootState>((state) => state.user.isLoading);
@@ -28,7 +33,7 @@ const SignInWithToken = () => {
     (state) => state.user.user.firstName
   );
 
-  const handleUserSignIn = async (token: string) => {
+  const handleUserSignIn = async () => {
     dispatch(initLogin());
 
     try {
@@ -54,8 +59,8 @@ const SignInWithToken = () => {
   };
 
   useEffect(() => {
-    if (router.query.token) {
-      handleUserSignIn(router.query.token.toString());
+    if (token) {
+      handleUserSignIn();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router.query]);
@@ -156,6 +161,16 @@ const SignInWithToken = () => {
       )}
     </>
   );
+};
+
+export const getServerSideProps: GetServerSideProps<Props> = async (
+  context: GetServerSidePropsContext
+) => {
+  return {
+    props: {
+      token: context.params?.token?.toString() ?? "undefined",
+    },
+  };
 };
 
 export default SignInWithToken;
