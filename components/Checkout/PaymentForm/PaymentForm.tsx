@@ -1,18 +1,15 @@
 import { Price } from "@chec/commerce.js/types/price";
 import Coffee from "@mui/icons-material/Coffee";
 import Edit from "@mui/icons-material/Edit";
-import { LoadingButton } from "@mui/lab";
-import {
-  Box,
-  Button,
-  Divider,
-  Grid,
-  IconButton,
-  Paper,
-  Stack,
-  Typography,
-  useTheme,
-} from "@mui/material";
+import LoadingButton from "@mui/lab/LoadingButton";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Divider from "@mui/material/Divider";
+import Grid from "@mui/material/Grid";
+import IconButton from "@mui/material/IconButton";
+import Stack from "@mui/material/Stack";
+import Typography from "@mui/material/Typography";
+import useTheme from "@mui/system/useTheme";
 import {
   CardElement,
   Elements,

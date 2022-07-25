@@ -1,4 +1,7 @@
-import { CircularProgress, Grid, Stack, Typography } from "@mui/material";
+import CircularProgress from "@mui/material/CircularProgress";
+import Grid from "@mui/material/Grid";
+import Stack from "@mui/material/Stack";
+import Typography from "@mui/material/Typography";
 import { ErrorMessage } from "formik";
 import { useRouter } from "next/router";
 import React, { useEffect } from "react";

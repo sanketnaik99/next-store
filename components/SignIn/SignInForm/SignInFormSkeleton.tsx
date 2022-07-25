@@ -1,4 +1,6 @@
-import { Grid, Skeleton, Stack } from "@mui/material";
+import Grid from "@mui/material/Grid";
+import Skeleton from "@mui/material/Skeleton";
+import Stack from "@mui/material/Stack";
 import React from "react";
 
 const SignInFormSkeleton = () => {

@@ -1,4 +1,5 @@
-import { CssBaseline, ThemeProvider } from "@mui/material";
+import CssBaseline from "@mui/material/CssBaseline";
+import ThemeProvider from "@mui/system/ThemeProvider";
 import dynamic from "next/dynamic";
 import Head from "next/head";
 import React, { Suspense, useEffect, useState } from "react";

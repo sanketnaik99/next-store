@@ -1,12 +1,10 @@
 import { LineItem } from "@chec/commerce.js/types/line-item";
-import {
-  Button,
-  Divider,
-  Grid,
-  Stack,
-  Typography,
-  useTheme,
-} from "@mui/material";
+import Button from "@mui/material/Button";
+import Divider from "@mui/material/Divider";
+import Grid from "@mui/material/Grid";
+import Stack from "@mui/material/Stack";
+import Typography from "@mui/material/Typography";
+import useTheme from "@mui/system/useTheme";
 import { NextPage } from "next";
 import React from "react";
 import { useSelector } from "react-redux";

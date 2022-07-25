@@ -1,12 +1,10 @@
-import {
-  Button,
-  Divider,
-  Modal,
-  Paper,
-  Stack,
-  Typography,
-  useTheme,
-} from "@mui/material";
+import Button from "@mui/material/Button";
+import Divider from "@mui/material/Divider";
+import Modal from "@mui/material/Modal";
+import Paper from "@mui/material/Paper";
+import Stack from "@mui/material/Stack";
+import Typography from "@mui/material/Typography";
+import useTheme from "@mui/system/useTheme";
 import React from "react";
 
 interface Props {

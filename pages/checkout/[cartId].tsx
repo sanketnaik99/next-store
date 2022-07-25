@@ -1,6 +1,9 @@
 import { useRouter } from "next/router";
 import React, { useState } from "react";
-import { Paper, Step, StepLabel, Stepper } from "@mui/material";
+import Paper from "@mui/material/Paper";
+import Step from "@mui/material/Step";
+import StepLabel from "@mui/material/StepLabel";
+import Stepper from "@mui/material/Stepper";
 import InfoForm, {
   InfoValues,
 } from "../../components/Checkout/InfoForm/InfoForm";

@@ -1,11 +1,9 @@
-import {
-  Box,
-  Button,
-  Card,
-  CardActions,
-  CardContent,
-  Typography,
-} from "@mui/material";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Card from "@mui/material/Card";
+import CardActions from "@mui/material/CardActions";
+import CardContent from "@mui/material/CardContent";
+import Typography from "@mui/material/Typography";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";

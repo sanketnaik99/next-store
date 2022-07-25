@@ -1,18 +1,13 @@
 import Coffee from "@mui/icons-material/Coffee";
-import Close from "@mui/icons-material/Close";
-import {
-  Button,
-  Chip,
-  Divider,
-  Grid,
-  IconButton,
-  Modal,
-  Paper,
-  Stack,
-  TextField,
-  Typography,
-  useTheme,
-} from "@mui/material";
+import Button from "@mui/material/Button";
+import Divider from "@mui/material/Divider";
+import Grid from "@mui/material/Grid";
+import Modal from "@mui/material/Modal";
+import Paper from "@mui/material/Paper";
+import Stack from "@mui/material/Stack";
+import TextField from "@mui/material/TextField";
+import Typography from "@mui/material/Typography";
+import useTheme from "@mui/system/useTheme";
 import React from "react";
 
 interface Props {

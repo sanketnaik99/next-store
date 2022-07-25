@@ -1,4 +1,5 @@
-import { Grid, Typography } from "@mui/material";
+import Grid from "@mui/material/Grid";
+import Typography from "@mui/material/Typography";
 import React from "react";
 import { useSelector } from "react-redux";
 import DownloadCard from "../../../components/Checkout/DownloadCard/DownloadCard";

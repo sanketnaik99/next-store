@@ -1,14 +1,12 @@
 import { LineItem } from "@chec/commerce.js/types/line-item";
 import Delete from "@mui/icons-material/Delete";
-import {
-  Divider,
-  Grid,
-  IconButton,
-  Paper,
-  Stack,
-  Typography,
-} from "@mui/material";
-import { useTheme } from "@mui/system";
+import Divider from "@mui/material/Divider";
+import Grid from "@mui/material/Grid";
+import IconButton from "@mui/material/IconButton";
+import Paper from "@mui/material/Paper";
+import Stack from "@mui/material/Stack";
+import Typography from "@mui/material/Typography";
+import useTheme from "@mui/system/useTheme";
 import Image from "next/image";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";

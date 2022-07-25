@@ -1,4 +1,8 @@
-import { Paper, Grid, Stack, Skeleton, Divider } from "@mui/material";
+import Paper from "@mui/material/Paper";
+import Grid from "@mui/material/Grid";
+import Stack from "@mui/material/Stack";
+import Skeleton from "@mui/material/Skeleton";
+import Divider from "@mui/material/Divider";
 import React from "react";
 
 const SkeletonCard = () => {

@@ -1,15 +1,11 @@
 import { Price } from "@chec/commerce.js/types/price";
-import { LoadingButton } from "@mui/lab";
-import {
-  Alert,
-  Box,
-  Button,
-  Divider,
-  Grid,
-  Slide,
-  Stack,
-  Typography,
-} from "@mui/material";
+import LoadingButton from "@mui/lab/LoadingButton";
+import Alert from "@mui/material/Alert";
+import Box from "@mui/material/Box";
+import Divider from "@mui/material/Divider";
+import Slide from "@mui/material/Slide";
+import Stack from "@mui/material/Stack";
+import Typography from "@mui/material/Typography";
 import { loadStripe } from "@stripe/stripe-js";
 import { useRouter } from "next/router";
 import React from "react";
