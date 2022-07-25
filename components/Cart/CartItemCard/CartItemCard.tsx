@@ -1,5 +1,5 @@
 import { LineItem } from "@chec/commerce.js/types/line-item";
-import { Delete } from "@mui/icons-material";
+import Delete from "@mui/icons-material/Delete";
 import {
   Divider,
   Grid,

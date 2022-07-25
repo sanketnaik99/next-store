@@ -1,16 +1,19 @@
 import { CssBaseline, ThemeProvider } from "@mui/material";
+import dynamic from "next/dynamic";
 import Head from "next/head";
-import React, { useEffect, useState } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../../ducks";
 import { initializeCart } from "../../../ducks/cart";
 import { commerce } from "../../../pages/_app";
 import { darkTheme, lightTheme } from "../../../theme";
-import Navbar from "../Navbar/Navbar";
+import NavbarPlaceholder from "../Navbar/NavbarPlaceholder";
 
 interface Props {
   children: React.ReactNode;
 }
+
+const Navbar = dynamic(() => import("../Navbar/Navbar"));
 
 const Layout: React.FC<Props> = ({ children }) => {
   const [currentTheme, setTheme] = useState("light");
@@ -55,7 +58,6 @@ const Layout: React.FC<Props> = ({ children }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentTheme]);
 
-  const isLoggedIn = false;
   return (
     <>
       <Head>
@@ -63,10 +65,12 @@ const Layout: React.FC<Props> = ({ children }) => {
       </Head>
       <ThemeProvider theme={currentTheme === "light" ? lightTheme : darkTheme}>
         <CssBaseline />
-        <Navbar
-          setTheme={(theme: string) => setTheme(theme)}
-          currentTheme={currentTheme}
-        />
+        <Suspense fallback={<NavbarPlaceholder />}>
+          <Navbar
+            setTheme={(theme: string) => setTheme(theme)}
+            currentTheme={currentTheme}
+          />
+        </Suspense>
         {children}
         {/* Bottom Navbar */}
         {/* Footer */}

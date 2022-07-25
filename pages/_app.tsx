@@ -7,12 +7,24 @@ import { store } from "../ducks";
 import { useEffect } from "react";
 import { getCustomerError, getCustomerSuccess } from "../ducks/user";
 import { User } from "../ducks/user/types";
+import { CacheProvider, EmotionCache } from "@emotion/react";
+import Head from "next/head";
+import createEmotionCache from "../createEmotionCache";
 
 export const commerce = new Commerce(
   `${process.env.NEXT_PUBLIC_CHEC_PUBLIC_API_KEY}`
 );
 
-const MyApp = ({ Component, pageProps }: AppProps) => {
+interface CustomAppProps extends AppProps {
+  emotionCache?: EmotionCache;
+}
+const clientSideEmotionCache = createEmotionCache();
+
+const MyApp = ({
+  Component,
+  pageProps,
+  emotionCache = clientSideEmotionCache,
+}: CustomAppProps) => {
   useEffect(() => {
     if (commerce.customer.isLoggedIn()) {
       commerce.customer
@@ -33,11 +45,16 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
   }, []);
 
   return (
-    <Provider store={store}>
-      <Layout>
-        <Component {...pageProps} />
-      </Layout>
-    </Provider>
+    <CacheProvider value={emotionCache}>
+      <Head>
+        <meta name="viewport" content="initial-scale=1, width=device-width" />
+      </Head>
+      <Provider store={store}>
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      </Provider>
+    </CacheProvider>
   );
 };
 

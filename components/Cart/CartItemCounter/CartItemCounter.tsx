@@ -1,4 +1,5 @@
-import { Add, Remove } from "@mui/icons-material";
+import Add from "@mui/icons-material/Add";
+import Remove from "@mui/icons-material/Remove";
 import { LoadingButton } from "@mui/lab";
 import { Button, ButtonGroup, Typography, useTheme } from "@mui/material";
 import React from "react";

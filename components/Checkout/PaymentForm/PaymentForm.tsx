@@ -1,5 +1,6 @@
 import { Price } from "@chec/commerce.js/types/price";
-import { Coffee, Edit } from "@mui/icons-material";
+import Coffee from "@mui/icons-material/Coffee";
+import Edit from "@mui/icons-material/Edit";
 import { LoadingButton } from "@mui/lab";
 import {
   Box,

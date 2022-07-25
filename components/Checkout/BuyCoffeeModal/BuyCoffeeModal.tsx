@@ -1,4 +1,5 @@
-import { Close, Coffee } from "@mui/icons-material";
+import Coffee from "@mui/icons-material/Coffee";
+import Close from "@mui/icons-material/Close";
 import {
   Button,
   Chip,

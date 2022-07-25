@@ -1,9 +1,7 @@
-import {
-  DarkMode,
-  LightMode,
-  Menu,
-  ShoppingCartOutlined,
-} from "@mui/icons-material";
+import DarkMode from "@mui/icons-material/DarkMode";
+import LightMode from "@mui/icons-material/LightMode";
+import Menu from "@mui/icons-material/Menu";
+import ShoppingCartOutlined from "@mui/icons-material/ShoppingCartOutlined";
 import {
   AppBar,
   Box,

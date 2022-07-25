@@ -1,4 +1,6 @@
-import { Home, Person, PersonAdd, ShoppingCart } from "@mui/icons-material";
+import Home from "@mui/icons-material/Home";
+import Person from "@mui/icons-material/Person";
+import ShoppingCart from "@mui/icons-material/ShoppingCart";
 import {
   List,
   ListItem,
