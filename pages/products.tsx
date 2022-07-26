@@ -1,10 +1,10 @@
 import { Product } from "@chec/commerce.js/types/product";
-import Grid from "@mui/material/Grid";
-import Typography from "@mui/material/Typography";
 import { GetStaticProps, NextPage } from "next";
 import React from "react";
 import ProductCard from "../components/Products/ProductCard/ProductCard";
 import { commerce } from "./_app";
+
+import { Grid, Typography } from '@mui/material';
 
 interface Props {
   products: Product[];

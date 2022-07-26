@@ -1,4 +1,4 @@
-import { createTheme } from "@mui/material/styles";
+import { createTheme } from '@mui/material';
 declare module "@mui/material/styles" {
   interface Palette {
     neutral: Palette["primary"];

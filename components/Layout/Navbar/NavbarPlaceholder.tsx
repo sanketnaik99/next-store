@@ -1,13 +1,9 @@
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import Container from "@mui/material/Container";
-import Skeleton from "@mui/material/Skeleton";
-import Stack from "@mui/material/Stack";
-import Toolbar from "@mui/material/Toolbar";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import Logo from "../../../public/assets/store-logo.svg";
+
+import { AppBar, Box, Container, Skeleton, Stack, Toolbar } from '@mui/material';
 
 const NavbarPlaceholder = () => {
   return (

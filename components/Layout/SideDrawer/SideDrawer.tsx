@@ -1,16 +1,19 @@
 import Home from "@mui/icons-material/Home";
 import Person from "@mui/icons-material/Person";
 import ShoppingCart from "@mui/icons-material/ShoppingCart";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemText from "@mui/material/ListItemText";
-import SwipeableDrawer from "@mui/material/SwipeableDrawer";
-import Box from "@mui/material/Box";
-import ListItemIcon from "@mui/material/ListItemIcon";
 import { useRouter } from "next/router";
 import React from "react";
 import { Props, SideDrawerButton } from "./types";
+
+import {
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemText,
+  SwipeableDrawer,
+  Box,
+  ListItemIcon,
+} from '@mui/material';
 
 const loggedInButtons: SideDrawerButton[] = [
   { title: "Home", icon: <Home />, link: "/" },

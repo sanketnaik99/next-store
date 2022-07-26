@@ -1,11 +1,7 @@
-import Button from "@mui/material/Button";
-import Divider from "@mui/material/Divider";
-import Modal from "@mui/material/Modal";
-import Paper from "@mui/material/Paper";
-import Stack from "@mui/material/Stack";
-import Typography from "@mui/material/Typography";
 import useTheme from "@mui/system/useTheme";
 import React from "react";
+
+import { Button, Divider, Modal, Paper, Stack, Typography } from '@mui/material';
 
 interface Props {
   isModalOpen: boolean;

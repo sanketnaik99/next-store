@@ -1,14 +1,8 @@
 import Coffee from "@mui/icons-material/Coffee";
-import Button from "@mui/material/Button";
-import Divider from "@mui/material/Divider";
-import Grid from "@mui/material/Grid";
-import Modal from "@mui/material/Modal";
-import Paper from "@mui/material/Paper";
-import Stack from "@mui/material/Stack";
-import TextField from "@mui/material/TextField";
-import Typography from "@mui/material/Typography";
 import useTheme from "@mui/system/useTheme";
 import React from "react";
+
+import { Button, Divider, Grid, Modal, Paper, Stack, TextField, Typography } from '@mui/material';
 
 interface Props {
   isModalOpen: boolean;

@@ -1,7 +1,3 @@
-import CircularProgress from "@mui/material/CircularProgress";
-import Grid from "@mui/material/Grid";
-import Stack from "@mui/material/Stack";
-import Typography from "@mui/material/Typography";
 import { ErrorMessage } from "formik";
 import { useRouter } from "next/router";
 import React, { useEffect } from "react";
@@ -20,6 +16,8 @@ import HelloImage from "../../../public/assets/hello.png";
 import ErrorImage from "../../../public/assets/error.png";
 import Image from "next/image";
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
+
+import { CircularProgress, Grid, Stack, Typography } from '@mui/material';
 
 interface Props {
   token: string;

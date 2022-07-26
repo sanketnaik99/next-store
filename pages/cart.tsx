@@ -1,9 +1,4 @@
 import { LineItem } from "@chec/commerce.js/types/line-item";
-import Button from "@mui/material/Button";
-import Divider from "@mui/material/Divider";
-import Grid from "@mui/material/Grid";
-import Stack from "@mui/material/Stack";
-import Typography from "@mui/material/Typography";
 import useTheme from "@mui/system/useTheme";
 import { NextPage } from "next";
 import React from "react";
@@ -14,6 +9,8 @@ import { RootState } from "../ducks";
 import { useRouter } from "next/router";
 import EmptyCart from "../public/assets/empty-box.png";
 import Image from "next/image";
+
+import { Button, Divider, Grid, Stack, Typography } from '@mui/material';
 
 const Cart: NextPage = () => {
   const cartItems = useSelector<RootState, LineItem[]>(

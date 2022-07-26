@@ -1,10 +1,10 @@
-import Grid from "@mui/material/Grid";
-import Typography from "@mui/material/Typography";
 import React from "react";
 import { useSelector } from "react-redux";
 import DownloadCard from "../../../components/Checkout/DownloadCard/DownloadCard";
 import { RootState } from "../../../ducks";
 import { Download, LineItem } from "../../../ducks/checkout/types";
+
+import { Grid, Typography } from '@mui/material';
 
 const CheckoutSuccess = () => {
   const items = useSelector<RootState, LineItem[] | undefined>(

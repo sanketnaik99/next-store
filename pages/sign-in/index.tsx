@@ -1,10 +1,9 @@
 import { NextPage } from "next";
-import Typography from "@mui/material/Typography";
-import Box from "@mui/material/Box";
-import Container from "@mui/material/Container";
 import React, { Suspense } from "react";
 import dynamic from "next/dynamic";
 import SignInFormSkeleton from "../../components/SignIn/SignInForm/SignInFormSkeleton";
+
+import { Typography, Box, Container } from '@mui/material';
 
 const SignInForm = dynamic(
   () => import("../../components/SignIn/SignInForm/SignInForm")

@@ -2,13 +2,6 @@ import DarkMode from "@mui/icons-material/DarkMode";
 import LightMode from "@mui/icons-material/LightMode";
 import Menu from "@mui/icons-material/Menu";
 import ShoppingCartOutlined from "@mui/icons-material/ShoppingCartOutlined";
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import IconButton from "@mui/material/IconButton";
-import Toolbar from "@mui/material/Toolbar";
-import Container from "@mui/material/Container";
-import Button from "@mui/material/Button";
-import Badge from "@mui/material/Badge";
 import Link from "next/link";
 
 import React, { useState } from "react";
@@ -19,6 +12,8 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../ducks";
+
+import { AppBar, Box, IconButton, Toolbar, Container, Button, Badge } from '@mui/material';
 
 const loggedInPages: NavbarButton[] = [
   { title: "Orders", link: "/orders" },

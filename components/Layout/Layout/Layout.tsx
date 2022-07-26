@@ -1,4 +1,3 @@
-import CssBaseline from "@mui/material/CssBaseline";
 import ThemeProvider from "@mui/system/ThemeProvider";
 import dynamic from "next/dynamic";
 import Head from "next/head";
@@ -9,6 +8,7 @@ import { initializeCart } from "../../../ducks/cart";
 import { commerce } from "../../../pages/_app";
 import { darkTheme, lightTheme } from "../../../theme";
 import NavbarPlaceholder from "../Navbar/NavbarPlaceholder";
+import { CssBaseline } from '@mui/material';
 
 interface Props {
   children: React.ReactNode;

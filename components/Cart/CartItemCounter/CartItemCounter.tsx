@@ -1,11 +1,10 @@
 import Add from "@mui/icons-material/Add";
 import Remove from "@mui/icons-material/Remove";
 import LoadingButton from "@mui/lab/LoadingButton";
-import Button from "@mui/material/Button";
-import ButtonGroup from "@mui/material/ButtonGroup";
-import Typography from "@mui/material/Typography";
 import useTheme from "@mui/system/useTheme";
 import React from "react";
+
+import { Button, ButtonGroup, Typography } from '@mui/material';
 
 interface Props {
   itemCount?: number;

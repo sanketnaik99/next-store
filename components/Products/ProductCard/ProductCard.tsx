@@ -1,10 +1,5 @@
 import { Product } from "@chec/commerce.js/types/product";
 import LoadingButton from "@mui/lab/LoadingButton";
-import Button from "@mui/material/Button";
-import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
-import CardContent from "@mui/material/CardContent";
-import Typography from "@mui/material/Typography";
 import useTheme from "@mui/system/useTheme";
 
 import { Box } from "@mui/system";
@@ -19,6 +14,8 @@ import {
 } from "../../../ducks/cart";
 import { commerce } from "../../../pages/_app";
 import { Props } from "./types";
+
+import { Button, Card, CardActions, CardContent, Typography } from '@mui/material';
 
 const ProductCard: React.FC<Props> = ({ product }) => {
   const dispatch = useDispatch<AppDispatch>();

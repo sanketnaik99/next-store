@@ -1,14 +1,12 @@
 import { useRouter } from "next/router";
 import React, { useState } from "react";
-import Paper from "@mui/material/Paper";
-import Step from "@mui/material/Step";
-import StepLabel from "@mui/material/StepLabel";
-import Stepper from "@mui/material/Stepper";
 import InfoForm, {
   InfoValues,
 } from "../../components/Checkout/InfoForm/InfoForm";
 import PaymentForm from "../../components/Checkout/PaymentForm/PaymentForm";
 import ReviewStep from "../../components/Checkout/ReviewStep/ReviewStep";
+
+import { Paper, Step, StepLabel, Stepper } from '@mui/material';
 
 export interface CheckoutData {
   firstName: string;

@@ -1,11 +1,5 @@
 import { Price } from "@chec/commerce.js/types/price";
 import LoadingButton from "@mui/lab/LoadingButton";
-import Alert from "@mui/material/Alert";
-import Box from "@mui/material/Box";
-import Divider from "@mui/material/Divider";
-import Slide from "@mui/material/Slide";
-import Stack from "@mui/material/Stack";
-import Typography from "@mui/material/Typography";
 import { loadStripe } from "@stripe/stripe-js";
 import { useRouter } from "next/router";
 import React from "react";
@@ -21,6 +15,8 @@ import {
 import { CheckoutResponseData } from "../../../ducks/checkout/types";
 import { CheckoutData } from "../../../pages/checkout/[cartId]";
 import { commerce } from "../../../pages/_app";
+
+import { Alert, Box, Divider, Slide, Stack, Typography } from '@mui/material';
 
 interface Props {
   data: CheckoutData;
