@@ -12,6 +12,8 @@ import CartItemCard from "../components/Cart/CartItemCard/CartItemCard";
 import SkeletonCard from "../components/Cart/SkeletonCard/SkeletonCard";
 import { RootState } from "../ducks";
 import { useRouter } from "next/router";
+import EmptyCart from "../public/assets/empty-box.png";
+import Image from "next/image";
 
 const Cart: NextPage = () => {
   const cartItems = useSelector<RootState, LineItem[]>(
@@ -30,6 +32,37 @@ const Cart: NextPage = () => {
     (state) => state.cart.cart.id
   );
   const router = useRouter();
+
+  if (cartItems.length === 0) {
+    return (
+      <>
+        <Grid
+          container
+          sx={{ minHeight: "90vh" }}
+          justifyContent="center"
+          alignItems="center"
+        >
+          <Grid item xs={12}>
+            <Stack spacing={2} justifyContent="center" alignItems="center">
+              <Image
+                src={EmptyCart}
+                height={200}
+                width={200}
+                alt="Empty Cart"
+              />
+              <Typography variant="h4" component="h4" sx={{ fontWeight: 600 }}>
+                Empty Cart
+              </Typography>
+              <Typography variant="body1" component="p">
+                Your cart is currently empty. Add something in your cart to get
+                started.
+              </Typography>
+            </Stack>
+          </Grid>
+        </Grid>
+      </>
+    );
+  }
 
   return (
     <>
