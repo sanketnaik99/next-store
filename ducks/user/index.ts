@@ -1,3 +1,4 @@
+import { CustomerOrdersCollection } from "@chec/commerce.js/features/customer";
 import {
   Action,
   GenerateLoginTokenErrorAction,
@@ -5,8 +6,14 @@ import {
   GENERATE_LOGIN_TOKEN_ERROR,
   GENERATE_LOGIN_TOKEN_SUCCESS,
   GetCustomerErrorAction,
+  GetCustomerOrdersAction,
+  GetCustomerOrdersErrorAction,
+  GetCustomerOrdersSuccessAction,
   GetCustomerSuccessAction,
   GET_CUSTOMER_ERROR,
+  GET_CUSTOMER_ORDERS,
+  GET_CUSTOMER_ORDERS_ERROR,
+  GET_CUSTOMER_ORDERS_SUCCESS,
   GET_CUSTOMER_SUCCESS,
   InitLoginAction,
   INIT_LOGIN,
@@ -39,6 +46,22 @@ export const getCustomerError = (
   return { type: GET_CUSTOMER_ERROR, errorMessage };
 };
 
+export const getCustomerOrders = (): GetCustomerOrdersAction => {
+  return { type: GET_CUSTOMER_ORDERS };
+};
+
+export const getCustomerOrdersSuccess = (
+  orders: CustomerOrdersCollection
+): GetCustomerOrdersSuccessAction => {
+  return { type: GET_CUSTOMER_ORDERS_SUCCESS, orders };
+};
+
+export const getCustomerOrdersError = (
+  errorMessage: string
+): GetCustomerOrdersErrorAction => {
+  return { type: GET_CUSTOMER_ORDERS_ERROR, errorMessage };
+};
+
 const initialState: UserState = {
   user: {
     firstName: "",
@@ -48,6 +71,9 @@ const initialState: UserState = {
   isLoading: false,
   isLoggedIn: false,
   errorMessage: "",
+  isLoadingOrders: true,
+  orders: null,
+  ordersError: "",
 };
 
 export const reducer = (
@@ -99,6 +125,25 @@ export const reducer = (
           lastName: "",
           email: "",
         },
+      };
+    case GET_CUSTOMER_ORDERS:
+      return {
+        ...state,
+        isLoadingOrders: true,
+      };
+    case GET_CUSTOMER_ORDERS_SUCCESS:
+      return {
+        ...state,
+        isLoadingOrders: false,
+        orders: action.orders,
+        errorMessage: "",
+      };
+    case GET_CUSTOMER_ORDERS_ERROR:
+      return {
+        ...state,
+        isLoadingOrders: false,
+        orders: null,
+        errorMessage: action.errorMessage,
       };
     default:
       return state;
