@@ -42,6 +42,14 @@ const Orders = () => {
     }
   };
 
+  const formatDate = (epochDate: number) => {
+    let date = new Date(epochDate * 1000);
+    const period = date.getHours() < 12 ? "AM" : "PM";
+    return `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()} - ${
+      date.getHours() % 12
+    }:${date.getMinutes()} ${period}`;
+  };
+
   const getOrderCards = () => {
     if (orders) {
       return orders.map((order) => (
@@ -59,10 +67,10 @@ const Orders = () => {
                 {order.id}
               </Typography>
               <Typography variant="body2" component="p">
-                {order.created}
+                <b>Ordered:</b> {formatDate(order.created)}
               </Typography>
               <Typography variant="body2" component="p">
-                {order.order_value.formatted_with_symbol}
+                <b>Order Value:</b> {order.order_value.formatted_with_symbol}
               </Typography>
             </CardContent>
             <CardActions sx={{ float: "inline-end" }}>
