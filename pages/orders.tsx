@@ -1,17 +1,29 @@
 import React, { useEffect } from "react";
 
-import { Grid, Typography } from "@mui/material";
+import {
+  Button,
+  Card,
+  CardActions,
+  CardContent,
+  Grid,
+  Typography,
+} from "@mui/material";
 import { commerce } from "./_app";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   getCustomerOrders,
   getCustomerOrdersError,
   getCustomerOrdersSuccess,
 } from "../ducks/user";
 import CardSkeleton from "../components/Shared/CardSkeleton/CardSkeleton";
+import { RootState } from "../ducks";
+import { Order } from "@chec/commerce.js/types/order";
 
 const Orders = () => {
   const dispatch = useDispatch();
+  const orders = useSelector<RootState, Order[] | undefined>(
+    (state) => state.user.orders?.data
+  );
 
   useEffect(() => {
     fetchCustomerOrders();
@@ -31,9 +43,37 @@ const Orders = () => {
   };
 
   const getOrderCards = () => {
-    // if (orders){
-    //   return <></>
-    // }
+    if (orders) {
+      return orders.map((order) => (
+        <Grid item md={4} xs={12} key={order.id}>
+          <Card
+            sx={{ height: "100%", display: "flex", flexDirection: "column" }}
+          >
+            <CardContent sx={{ flexGrow: 1 }}>
+              <Typography
+                gutterBottom
+                variant="h6"
+                component="h6"
+                sx={{ fontWeight: "bold" }}
+              >
+                {order.id}
+              </Typography>
+              <Typography variant="body2" component="p">
+                {order.created}
+              </Typography>
+              <Typography variant="body2" component="p">
+                {order.order_value.formatted_with_symbol}
+              </Typography>
+            </CardContent>
+            <CardActions sx={{ float: "inline-end" }}>
+              <Button size="small" fullWidth variant="outlined" color="neutral">
+                Order Details
+              </Button>
+            </CardActions>
+          </Card>
+        </Grid>
+      ));
+    }
     return [0, 1, 2].map((number) => (
       <Grid item md={4} xs={12} key={number}>
         <CardSkeleton />

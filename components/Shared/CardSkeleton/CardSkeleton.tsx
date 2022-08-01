@@ -1,12 +1,4 @@
-import {
-  Card,
-  CardActions,
-  CardContent,
-  CardMedia,
-  Skeleton,
-  Stack,
-} from "@mui/material";
-import { Box } from "@mui/system";
+import { Card, CardActions, CardContent, Skeleton, Stack } from "@mui/material";
 import React from "react";
 
 const CardSkeleton = () => {
@@ -20,18 +12,13 @@ const CardSkeleton = () => {
       }}
     >
       <CardContent sx={{ flexGrow: 1 }}>
-        <Skeleton height={40} width={150} sx={{ marginBottom: "1rem" }} />
-        <Skeleton height={40} width={300} />
-        <Skeleton height={40} width={300} />
+        <Skeleton height={40} sx={{ marginBottom: "1rem", maxWidth: 300 }} />
+        <Skeleton height={40} sx={{ width: "100%" }} />
+        <Skeleton height={40} sx={{ width: "100%" }} />
       </CardContent>
       <CardActions>
-        <Stack
-          direction="row"
-          justifyContent="space-between"
-          sx={{ width: "100%" }}
-        >
-          <Skeleton height={80} width={150} />
-          <Skeleton height={80} width={150} />
+        <Stack direction="row" justifyContent="center" sx={{ width: "100%" }}>
+          <Skeleton height={80} sx={{ width: "90%", maxWidth: 400 }} />
         </Stack>
       </CardActions>
     </Card>
