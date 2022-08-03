@@ -10,10 +10,20 @@ import { NavbarButton } from "./types";
 import Logo from "../../../public/assets/store-logo.svg";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../ducks";
 
-import { AppBar, Box, IconButton, Toolbar, Container, Button, Badge } from '@mui/material';
+import {
+  AppBar,
+  Box,
+  IconButton,
+  Toolbar,
+  Container,
+  Button,
+  Badge,
+} from "@mui/material";
+import { commerce } from "../../../pages/_app";
+import { logoutError, logoutSuccess } from "../../../ducks/user";
 
 const loggedInPages: NavbarButton[] = [
   { title: "Orders", link: "/orders" },
@@ -33,6 +43,7 @@ interface Props {
 const Navbar: React.FC<Props> = ({ currentTheme, setTheme }) => {
   const [isDrawerOpen, setDrawerOpen] = useState(false);
   const router = useRouter();
+  const dispatch = useDispatch();
   const itemCount = useSelector<RootState, number>(
     (state) => state.cart.cart.total_items
   );
@@ -40,6 +51,15 @@ const Navbar: React.FC<Props> = ({ currentTheme, setTheme }) => {
     (state) => state.user.isLoggedIn
   );
   const pages = isLoggedIn ? loggedInPages : loggedOutPages;
+
+  const handleLogout = async () => {
+    try {
+      await commerce.customer.logout();
+      dispatch(logoutSuccess());
+    } catch (error: any) {
+      dispatch(logoutError(error?.data?.error?.message));
+    }
+  };
 
   return (
     <AppBar position="sticky" enableColorOnDark>
@@ -85,6 +105,14 @@ const Navbar: React.FC<Props> = ({ currentTheme, setTheme }) => {
               flexDirection: "row-reverse",
             }}
           >
+            {isLoggedIn ? (
+              <Button
+                sx={{ my: 2, color: "white", display: "block" }}
+                onClick={handleLogout}
+              >
+                Logout
+              </Button>
+            ) : null}
             {pages.map((page) => (
               <Link href={page.link} key={page.link}>
                 <Button sx={{ my: 2, color: "white", display: "block" }}>

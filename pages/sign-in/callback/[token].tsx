@@ -17,7 +17,7 @@ import ErrorImage from "../../../public/assets/error.png";
 import Image from "next/image";
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
 
-import { CircularProgress, Grid, Stack, Typography } from '@mui/material';
+import { CircularProgress, Grid, Stack, Typography } from "@mui/material";
 
 interface Props {
   token: string;
@@ -36,24 +36,19 @@ const SignInWithToken: React.FC<Props> = ({ token }) => {
 
   const handleUserSignIn = async () => {
     dispatch(initLogin());
-
     try {
       const customerToken = await commerce.customer.getToken(token);
       dispatch(generateLoginTokenSuccess());
-      try {
-        const about = await commerce.customer.about();
-        const user: User = {
-          firstName: about.firstname,
-          lastName: about.lastname,
-          email: about.email,
-        };
-        dispatch(getCustomerSuccess(user));
-        setTimeout(() => {
-          router.push("/");
-        }, 3000);
-      } catch (error: any) {
-        dispatch(getCustomerError(error?.data?.error?.message));
-      }
+      const about = await commerce.customer.about();
+      const user: User = {
+        firstName: about.firstname,
+        lastName: about.lastname,
+        email: about.email,
+      };
+      dispatch(getCustomerSuccess(user));
+      setTimeout(() => {
+        router.push("/");
+      }, 3000);
     } catch (error: any) {
       dispatch(generateLoginTokenError(error?.data?.error?.message));
     }

@@ -2,6 +2,8 @@ import { CustomerOrdersCollection } from "@chec/commerce.js/features/customer";
 import { CheckoutResponseData } from "../checkout/types";
 
 export const INIT_LOGIN = "next-ecommerce/users/INIT_LOGIN";
+export const LOGOUT_SUCCESS = "next-ecommerce/users/LOGOUT_SUCCESS";
+export const LOGOUT_ERROR = "next-ecommerce/users/LOGOUT_ERROR";
 export const GENERATE_LOGIN_TOKEN_SUCCESS =
   "next-ecommerce/users/GENERATE_LOGIN_TOKEN_SUCCESS";
 export const GENERATE_LOGIN_TOKEN_ERROR =
@@ -22,10 +24,21 @@ export type Action =
   | GetCustomerErrorAction
   | GetCustomerOrdersAction
   | GetCustomerOrdersSuccessAction
-  | GetCustomerOrdersErrorAction;
+  | GetCustomerOrdersErrorAction
+  | LogoutSuccessAction
+  | LogoutErrorAction;
 
 export interface InitLoginAction {
   readonly type: typeof INIT_LOGIN;
+}
+
+export interface LogoutSuccessAction {
+  readonly type: typeof LOGOUT_SUCCESS;
+}
+
+export interface LogoutErrorAction {
+  readonly type: typeof LOGOUT_ERROR;
+  errorMessage: string;
 }
 
 export interface GenerateLoginTokenSuccessAction {

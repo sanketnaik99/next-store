@@ -17,12 +17,24 @@ import {
   GET_CUSTOMER_SUCCESS,
   InitLoginAction,
   INIT_LOGIN,
+  LogoutErrorAction,
+  LogoutSuccessAction,
+  LOGOUT_ERROR,
+  LOGOUT_SUCCESS,
   User,
   UserState,
 } from "./types";
 
 export const initLogin = (): InitLoginAction => {
   return { type: INIT_LOGIN };
+};
+
+export const logoutSuccess = (): LogoutSuccessAction => {
+  return { type: LOGOUT_SUCCESS };
+};
+
+export const logoutError = (errorMessage: string): LogoutErrorAction => {
+  return { type: LOGOUT_ERROR, errorMessage };
 };
 
 export const generateLoginTokenSuccess =
@@ -91,6 +103,30 @@ export const reducer = (
         },
         isLoading: true,
         errorMessage: "",
+        isLoggedIn: false,
+      };
+    case LOGOUT_SUCCESS:
+      return {
+        ...state,
+        user: {
+          firstName: "",
+          lastName: "",
+          email: "",
+        },
+        isLoading: false,
+        errorMessage: "",
+        isLoggedIn: false,
+      };
+    case LOGOUT_ERROR:
+      return {
+        ...state,
+        user: {
+          firstName: "",
+          lastName: "",
+          email: "",
+        },
+        isLoading: false,
+        errorMessage: action.errorMessage,
         isLoggedIn: false,
       };
     case GENERATE_LOGIN_TOKEN_SUCCESS:
