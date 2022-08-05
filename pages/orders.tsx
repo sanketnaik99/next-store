@@ -34,7 +34,6 @@ const Orders = () => {
     try {
       dispatch(getCustomerOrders());
       const orders = await commerce.customer.getOrders();
-      console.log("ORDERS", orders);
       dispatch(getCustomerOrdersSuccess(orders));
     } catch (error: any) {
       console.error(error);

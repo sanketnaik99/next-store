@@ -28,10 +28,12 @@ import { logoutError, logoutSuccess } from "../../../ducks/user";
 const loggedInPages: NavbarButton[] = [
   { title: "Orders", link: "/orders" },
   { title: "Profile", link: "/profile" },
+  { title: "Products", link: "/products" },
   { title: "Home", link: "/" },
 ];
 const loggedOutPages: NavbarButton[] = [
   { title: "Sign In", link: "/sign-in" },
+  { title: "Products", link: "/products" },
   { title: "Home", link: "/" },
 ];
 
