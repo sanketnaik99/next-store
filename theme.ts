@@ -1,4 +1,4 @@
-import { createTheme } from '@mui/material';
+import { createTheme } from "@mui/material";
 declare module "@mui/material/styles" {
   interface Palette {
     neutral: Palette["primary"];
@@ -25,10 +25,10 @@ export const darkTheme = createTheme({
       paper: "#424242",
     },
     primary: {
-      main: "#009688",
+      main: "#2196f3",
     },
     secondary: {
-      main: "#ff6d00",
+      main: "#f50057",
       contrastText: "#ffffff",
     },
     error: {
@@ -41,7 +41,7 @@ export const darkTheme = createTheme({
       main: "#00b0ff",
     },
     success: {
-      main: "#00e676",
+      main: "#00a152",
     },
     neutral: {
       main: "#E0E0E0",
@@ -54,10 +54,10 @@ export const lightTheme = createTheme({
   palette: {
     mode: "light",
     primary: {
-      main: "#009688",
+      main: "#2196f3",
     },
     secondary: {
-      main: "#ff6d00",
+      main: "#f50057",
       contrastText: "#ffffff",
     },
     error: {
@@ -70,7 +70,7 @@ export const lightTheme = createTheme({
       main: "#00b0ff",
     },
     success: {
-      main: "#00e676",
+      main: "#00a152",
     },
     neutral: {
       main: "#424242",

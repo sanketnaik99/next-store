@@ -20,8 +20,16 @@ import {
   Card,
   CardActions,
   CardContent,
+  Chip,
+  Stack,
   Typography,
 } from "@mui/material";
+
+const chipColors: Record<string, string> = {
+  featured: "#7c4dff",
+  "desktop-wallpapers": "#0288d1",
+  "mobile-wallpapers": "#ff1744",
+};
 
 const ProductCard: React.FC<Props> = ({ product }) => {
   const dispatch = useDispatch<AppDispatch>();
@@ -69,14 +77,37 @@ const ProductCard: React.FC<Props> = ({ product }) => {
       </Box>
 
       <CardContent sx={{ flexGrow: 1 }}>
-        <Typography
-          gutterBottom
-          variant="h6"
-          component="h6"
-          sx={{ fontWeight: "bold" }}
-        >
-          {product.name}
-        </Typography>
+        <Stack direction="row" spacing={1} sx={{ marginBottom: "1rem" }}>
+          {product.categories.map((category) => (
+            <Chip
+              key={category.id}
+              label={category.name}
+              size="small"
+              sx={{
+                color: "white",
+                backgroundColor: chipColors[category.slug],
+              }}
+            />
+          ))}
+        </Stack>
+        <Stack direction="row" justifyContent="space-between">
+          <Typography
+            gutterBottom
+            variant="h6"
+            component="h6"
+            sx={{ fontWeight: "bold" }}
+          >
+            {product.name}
+          </Typography>
+          <Typography
+            gutterBottom
+            variant="h6"
+            component="h6"
+            sx={{ fontWeight: "bold" }}
+          >
+            {product.price.formatted_with_symbol}
+          </Typography>
+        </Stack>
         <Typography variant="body2" component="p">
           {product.seo.description}
         </Typography>
@@ -93,9 +124,6 @@ const ProductCard: React.FC<Props> = ({ product }) => {
         >
           Add to Cart
         </LoadingButton>
-        <Button size="small" fullWidth variant="outlined" color="neutral">
-          Learn More
-        </Button>
       </CardActions>
     </Card>
   );

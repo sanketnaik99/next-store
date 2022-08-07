@@ -4,7 +4,7 @@ import React from "react";
 import ProductCard from "../components/Products/ProductCard/ProductCard";
 import { commerce } from "./_app";
 
-import { Grid, Typography } from '@mui/material';
+import { Grid, Typography } from "@mui/material";
 
 interface Props {
   products: Product[];

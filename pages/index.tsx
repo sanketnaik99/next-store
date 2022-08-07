@@ -36,7 +36,7 @@ const Home: NextPage = () => {
         container
         justifyContent="center"
         alignItems="center"
-        sx={{ minHeight: 600 }}
+        sx={{ minHeight: "92vh", position: "relative" }}
       >
         <Grid
           item
@@ -83,6 +83,17 @@ const Home: NextPage = () => {
             />
           </Grid>
         </Grid>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 1440 320"
+          style={{ position: "absolute", bottom: 0, zIndex: -2 }}
+        >
+          <path
+            fill="#2196f3"
+            fillOpacity="1"
+            d="M0,256L48,245.3C96,235,192,213,288,218.7C384,224,480,256,576,240C672,224,768,160,864,144C960,128,1056,160,1152,165.3C1248,171,1344,149,1392,138.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"
+          ></path>
+        </svg>
       </Grid>
       {categories
         ? categories.data

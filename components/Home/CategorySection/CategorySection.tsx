@@ -8,6 +8,7 @@ import {
   Grid,
   Skeleton,
   Typography,
+  useTheme,
 } from "@mui/material";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
@@ -22,6 +23,7 @@ type Props = {
 const CategorySection: React.FC<Props> = ({ category, index }) => {
   const [isLoadingProducts, setLoadingProducts] = useState<boolean>(true);
   const [products, setProducts] = useState<ProductCollection>();
+  const theme = useTheme();
 
   const fetchProducts = async () => {
     const products = await commerce.products.list({
@@ -40,13 +42,17 @@ const CategorySection: React.FC<Props> = ({ category, index }) => {
   }, []);
 
   return (
-    <>
+    <div style={{ backgroundColor: index % 2 === 0 ? "#2196f3" : "inherit" }}>
       <Grid
         container
         justifyContent="center"
         direction={index % 2 === 0 ? "row-reverse" : "row"}
         alignItems="center"
-        sx={{ minHeight: 400, marginBottom: "2rem", marginTop: "8rem" }}
+        sx={{
+          minHeight: 400,
+          marginBottom: "2rem",
+          paddingTop: "8rem",
+        }}
         key={category.id}
       >
         <Grid
@@ -64,6 +70,10 @@ const CategorySection: React.FC<Props> = ({ category, index }) => {
               sx={{
                 fontWeight: 600,
                 textAlign: { xs: "center", md: "left" },
+                color:
+                  index % 2 === 0
+                    ? theme.palette.getContrastText(theme.palette.primary.main)
+                    : "inherit",
               }}
             >
               {category.name}.
@@ -76,6 +86,10 @@ const CategorySection: React.FC<Props> = ({ category, index }) => {
               sx={{
                 fontWeight: 400,
                 textAlign: { xs: "center", md: "left" },
+                color:
+                  index % 2 === 0
+                    ? theme.palette.getContrastText(theme.palette.primary.main)
+                    : "inherit",
               }}
             >
               {category.description}
@@ -130,7 +144,7 @@ const CategorySection: React.FC<Props> = ({ category, index }) => {
       ) : (
         <Grid
           container
-          sx={{ paddingLeft: 3, paddingRight: 3, marginBottom: 5 }}
+          sx={{ paddingLeft: 3, paddingRight: 3, paddingBottom: 5 }}
           spacing={3}
         >
           {products?.data &&
@@ -141,7 +155,7 @@ const CategorySection: React.FC<Props> = ({ category, index }) => {
             ))}
         </Grid>
       )}
-    </>
+    </div>
   );
 };
 
