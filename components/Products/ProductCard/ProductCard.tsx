@@ -15,7 +15,13 @@ import {
 import { commerce } from "../../../pages/_app";
 import { Props } from "./types";
 
-import { Button, Card, CardActions, CardContent, Typography } from '@mui/material';
+import {
+  Button,
+  Card,
+  CardActions,
+  CardContent,
+  Typography,
+} from "@mui/material";
 
 const ProductCard: React.FC<Props> = ({ product }) => {
   const dispatch = useDispatch<AppDispatch>();
@@ -45,11 +51,19 @@ const ProductCard: React.FC<Props> = ({ product }) => {
 
   return (
     <Card sx={{ height: "100%", display: "flex", flexDirection: "column" }}>
-      <Box sx={{ display: "flex", justifyContent: "center" }}>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          height: "18rem",
+          width: "100%",
+          position: "relative",
+        }}
+      >
         <Image
           src={product.assets[0].url}
-          height={300}
-          width={500}
+          layout="fill"
+          objectFit="cover"
           alt={product.name}
         />
       </Box>

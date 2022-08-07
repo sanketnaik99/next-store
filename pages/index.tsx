@@ -1,14 +1,29 @@
-import { Box, Grid, Stack, Typography, useTheme } from "@mui/material";
+import { CategoryCollection } from "@chec/commerce.js/features/categories";
+import { Box, Button, Grid, Stack, Typography, useTheme } from "@mui/material";
 import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
 import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+import CategorySection from "../components/Home/CategorySection/CategorySection";
 import SanketLogoDark from "../public/assets/sanket_logo_dark.png";
 import SanketLogoLight from "../public/assets/sanket_logo_light.png";
+import { commerce } from "./_app";
 
 const Home: NextPage = () => {
   const router = useRouter();
   const theme = useTheme();
+  const [categories, setCategories] = useState<CategoryCollection>();
+
+  const fetchCategories = async () => {
+    const categories = await commerce.categories.list();
+
+    setCategories(categories);
+  };
+
+  useState(() => {
+    fetchCategories();
+  });
 
   return (
     <div>
@@ -69,6 +84,17 @@ const Home: NextPage = () => {
           </Grid>
         </Grid>
       </Grid>
+      {categories
+        ? categories.data
+            .sort((c1, c2) => c1.created - c2.created)
+            .map((category, index) => (
+              <CategorySection
+                key={category.id}
+                category={category}
+                index={index}
+              />
+            ))
+        : null}
     </div>
   );
 };
