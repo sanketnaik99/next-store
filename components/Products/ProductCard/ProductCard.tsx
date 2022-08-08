@@ -26,8 +26,8 @@ import {
 } from "@mui/material";
 
 const chipColors: Record<string, string> = {
-  featured: "#7c4dff",
-  "desktop-wallpapers": "#0288d1",
+  featured: "#651fff",
+  "desktop-wallpapers": "#2962ff",
   "mobile-wallpapers": "#ff1744",
 };
 
