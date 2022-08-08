@@ -16,7 +16,8 @@ import { CheckoutResponseData } from "../../../ducks/checkout/types";
 import { CheckoutData } from "../../../pages/checkout/[cartId]";
 import { commerce } from "../../../pages/_app";
 
-import { Alert, Box, Divider, Slide, Stack, Typography } from '@mui/material';
+import { Alert, Box, Divider, Slide, Stack, Typography } from "@mui/material";
+import { resetCart } from "../../../ducks/cart";
 
 interface Props {
   data: CheckoutData;
@@ -67,6 +68,7 @@ const ReviewStep: React.FC<Props> = ({ data }) => {
           },
         });
         dispatch(captureOrderSuccess(checkout as CheckoutResponseData));
+        dispatch(resetCart());
         router.push(`/checkout/success/${checkout.id}`);
       } catch (err: any) {
         console.log(err);

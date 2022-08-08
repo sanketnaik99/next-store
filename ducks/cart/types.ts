@@ -10,6 +10,7 @@ export const UPDATE_CART_ERROR = "next-ecommerce/cart/UPDATE_CART_ERROR";
 export const REMOVE_ITEM_LOADING = "next-ecommerce/cart/REMOVE_ITEM_LOADING";
 export const REMOVE_ITEM_SUCCESS = "next-ecommerce/cart/REMOVE_ITEM_SUCCESS";
 export const REMOVE_ITEM_ERROR = "next-ecommerce/cart/REMOVE_ITEM_ERROR";
+export const RESET_CART = "next-ecommerce/cart/RESET_CART";
 
 export type Action =
   | InitializeCartAction
@@ -21,7 +22,8 @@ export type Action =
   | UpdateCartErrorAction
   | RemoveItemLoadingAction
   | RemoveItemSuccessAction
-  | RemoveItemErrorAction;
+  | RemoveItemErrorAction
+  | ResetCartAction;
 
 export interface AddToCartLoadingAction {
   readonly type: typeof ADD_TO_CART_LOADING;
@@ -68,6 +70,10 @@ export interface RemoveItemSuccessAction {
 
 export interface RemoveItemErrorAction {
   readonly type: typeof REMOVE_ITEM_ERROR;
+}
+
+export interface ResetCartAction {
+  readonly type: typeof RESET_CART;
 }
 
 export interface CartState {

@@ -12,6 +12,7 @@ import {
   REMOVE_ITEM_ERROR,
   REMOVE_ITEM_LOADING,
   REMOVE_ITEM_SUCCESS,
+  RESET_CART,
   UpdateCartLoadingAction,
   UPDATE_CART_ERROR,
   UPDATE_CART_LOADING,
@@ -58,6 +59,10 @@ export const removeItemSuccess = (newCart: Cart) => {
 
 export const removeItemError = () => {
   return { type: REMOVE_ITEM_ERROR };
+};
+
+export const resetCart = () => {
+  return { type: RESET_CART };
 };
 
 const initialState: CartState = {
@@ -145,6 +150,9 @@ export const reducer = (
         isRemovingItem: false,
         currentProductId: "",
       };
+    case RESET_CART: {
+      return initialState;
+    }
     default:
       return state;
   }
