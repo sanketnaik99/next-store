@@ -6,7 +6,9 @@ import InfoForm, {
 import PaymentForm from "../../components/Checkout/PaymentForm/PaymentForm";
 import ReviewStep from "../../components/Checkout/ReviewStep/ReviewStep";
 
-import { Paper, Step, StepLabel, Stepper } from '@mui/material';
+import { Paper, Step, StepLabel, Stepper } from "@mui/material";
+import { useSelector } from "react-redux";
+import { RootState } from "../../ducks";
 
 export interface CheckoutData {
   firstName: string;
@@ -20,27 +22,15 @@ const Checkout = () => {
   const router = useRouter();
   const { cartId } = router.query;
   const [activeStep, setActiveStep] = useState(0);
+  const { firstName, lastName, email } = useSelector(
+    (state: RootState) => state.user.user
+  );
   const [data, setData] = useState<CheckoutData>({
-    firstName: "",
-    lastName: "",
-    email: "",
+    firstName: firstName,
+    lastName: lastName,
+    email: email,
     coffeeAmount: 0,
   });
-
-  // useEffect(() => {
-  //   router.beforePopState(({ as }) => {
-  //     if (as !== router.asPath) {
-  //       alert("Are you Sure");
-  //       console.log(router.asPath);
-  //       return false;
-  //     }
-  //     return true;
-  //   });
-
-  //   return () => {
-  //     router.beforePopState(() => true);
-  //   };
-  // }, [router]);
 
   const handleInfoSubmit = (values: InfoValues) => {
     console.log(values);
