@@ -18,6 +18,7 @@ import {
 import CardSkeleton from "../components/Shared/CardSkeleton/CardSkeleton";
 import { RootState } from "../ducks";
 import { Order } from "@chec/commerce.js/types/order";
+import Link from "next/link";
 
 const Orders = () => {
   const dispatch = useDispatch();
@@ -73,9 +74,16 @@ const Orders = () => {
               </Typography>
             </CardContent>
             <CardActions sx={{ float: "inline-end" }}>
-              <Button size="small" fullWidth variant="outlined" color="neutral">
-                Order Details
-              </Button>
+              <Link href={`/order/${order.id}`}>
+                <Button
+                  size="small"
+                  fullWidth
+                  variant="outlined"
+                  color="neutral"
+                >
+                  Order Details
+                </Button>
+              </Link>
             </CardActions>
           </Card>
         </Grid>
