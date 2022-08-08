@@ -9,6 +9,7 @@ export const GENERATE_LOGIN_TOKEN_SUCCESS =
 export const GENERATE_LOGIN_TOKEN_ERROR =
   "next-ecommerce/users/GENERATE_LOGIN_TOKEN_ERROR";
 export const GET_CUSTOMER_SUCCESS = "next-ecommerce/users/GET_CUSTOMER_SUCCESS";
+export const UPDATE_CUSTOMER = "next-ecommerce/users/UPDATE_CUSTOMER";
 export const GET_CUSTOMER_ERROR = "next-ecommerce/users/GET_CUSTOMER_ERROR";
 export const GET_CUSTOMER_ORDERS = "next-ecommerce/users/GET_CUSTOMER_ORDERS";
 export const GET_CUSTOMER_ORDERS_SUCCESS =
@@ -26,7 +27,8 @@ export type Action =
   | GetCustomerOrdersSuccessAction
   | GetCustomerOrdersErrorAction
   | LogoutSuccessAction
-  | LogoutErrorAction;
+  | LogoutErrorAction
+  | UpdateCustomerAction;
 
 export interface InitLoginAction {
   readonly type: typeof INIT_LOGIN;
@@ -52,6 +54,11 @@ export interface GenerateLoginTokenErrorAction {
 
 export interface GetCustomerSuccessAction {
   readonly type: typeof GET_CUSTOMER_SUCCESS;
+  user: User;
+}
+
+export interface UpdateCustomerAction {
+  readonly type: typeof UPDATE_CUSTOMER;
   user: User;
 }
 

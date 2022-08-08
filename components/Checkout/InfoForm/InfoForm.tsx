@@ -3,7 +3,7 @@ import React from "react";
 import { CheckoutData } from "../../../pages/checkout/[cartId]";
 import validationSchema from "./types";
 
-import { Box, Button, Grid, TextField, Typography } from '@mui/material';
+import { Box, Button, Grid, TextField, Typography } from "@mui/material";
 
 export interface InfoValues {
   firstName: string;
@@ -80,11 +80,7 @@ const InfoForm: React.FC<Props> = ({ handleInfoSubmit, initialData }) => {
           />
         </Grid>
         <Grid xs={12} container item spacing={3} justifyContent="space-between">
-          <Grid item xs={6} md={3}>
-            {/* <Button variant="contained" fullWidth>
-            Back
-          </Button> */}
-          </Grid>
+          <Grid item xs={6} md={3}></Grid>
           <Grid item xs={6} md={3}>
             <Button variant="contained" fullWidth type="submit">
               Next

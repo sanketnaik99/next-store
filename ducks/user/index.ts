@@ -21,6 +21,8 @@ import {
   LogoutSuccessAction,
   LOGOUT_ERROR,
   LOGOUT_SUCCESS,
+  UpdateCustomerAction,
+  UPDATE_CUSTOMER,
   User,
   UserState,
 } from "./types";
@@ -50,6 +52,10 @@ export const generateLoginTokenError = (
 
 export const getCustomerSuccess = (user: User): GetCustomerSuccessAction => {
   return { type: GET_CUSTOMER_SUCCESS, user };
+};
+
+export const updateCustomer = (user: User): UpdateCustomerAction => {
+  return { type: UPDATE_CUSTOMER, user };
 };
 
 export const getCustomerError = (
@@ -143,6 +149,14 @@ export const reducer = (
         isLoggedIn: false,
       };
     case GET_CUSTOMER_SUCCESS:
+      return {
+        ...state,
+        errorMessage: "",
+        isLoading: false,
+        isLoggedIn: true,
+        user: action.user,
+      };
+    case UPDATE_CUSTOMER:
       return {
         ...state,
         errorMessage: "",
