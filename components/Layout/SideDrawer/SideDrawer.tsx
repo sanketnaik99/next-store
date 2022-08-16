@@ -13,15 +13,20 @@ import {
   SwipeableDrawer,
   Box,
   ListItemIcon,
-} from '@mui/material';
+} from "@mui/material";
+import { Receipt, StoreMallDirectory } from "@mui/icons-material";
 
 const loggedInButtons: SideDrawerButton[] = [
   { title: "Home", icon: <Home />, link: "/" },
+  { title: "Profile", icon: <Person />, link: "/profile" },
+  { title: "Products", icon: <StoreMallDirectory />, link: "/products" },
+  { title: "Orders", icon: <Receipt />, link: "orders" },
   { title: "Cart", icon: <ShoppingCart />, link: "/cart" },
 ];
 
 const loggedOutButtons: SideDrawerButton[] = [
   { title: "Home", icon: <Home />, link: "/" },
+  { title: "Products", icon: <StoreMallDirectory />, link: "/products" },
   { title: "Sign In", icon: <Person />, link: "/sign-in" },
 ];
 
