@@ -5,6 +5,7 @@ import ProductCard from "../components/Products/ProductCard/ProductCard";
 import { commerce } from "./_app";
 
 import { Grid, Typography } from "@mui/material";
+import Head from "next/head";
 
 interface Props {
   products: Product[];
@@ -13,6 +14,9 @@ interface Props {
 const Products: NextPage<Props> = ({ products }) => {
   return (
     <>
+      <Head>
+        <title>Products</title>
+      </Head>
       <Grid container sx={{ padding: 3, maxWidth: "100%" }} direction="column">
         <Typography variant="h3" component="h3" sx={{ fontWeight: "bold" }}>
           Products.
