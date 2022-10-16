@@ -33,7 +33,9 @@ const OrderDetails = () => {
           title={`Order - ${id}  | Sanket Naik Store`}
           description="View your order and all of its details here. You can also download the files associated with your order."
           url={process.env.NEXT_PUBLIC_BASE_URL + `/order/${id}`}
-          imageURL={process.env.NEXT_PUBLIC_BASE_URL + "/store-banner.png"}
+          imageURL={
+            process.env.NEXT_PUBLIC_BASE_URL + "/assets/store-banner.png"
+          }
         />
       </Head>
       <Grid container sx={{ padding: 3, maxWidth: "100%" }} direction="column">

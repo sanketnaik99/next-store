@@ -77,7 +77,9 @@ const Checkout = () => {
           title={`Checkout - ${cartId} | Sanket Naik Store`}
           description="Ready to place your order? Checkout your cart here."
           url={process.env.NEXT_PUBLIC_BASE_URL + `/checkout/${cartId}`}
-          imageURL={process.env.NEXT_PUBLIC_BASE_URL + "/store-banner.png"}
+          imageURL={
+            process.env.NEXT_PUBLIC_BASE_URL + "/assets/store-banner.png"
+          }
         />
       </Head>
       <Paper

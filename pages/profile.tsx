@@ -87,7 +87,9 @@ const Profile = () => {
           title="Profile | Sanket Naik Store"
           description="View and edit everything about your current profile."
           url={process.env.NEXT_PUBLIC_BASE_URL + "/profile"}
-          imageURL={process.env.NEXT_PUBLIC_BASE_URL + "/store-banner.png"}
+          imageURL={
+            process.env.NEXT_PUBLIC_BASE_URL + "/assets/store-banner.png"
+          }
         />
       </Head>
       <Grid container sx={{ padding: 3, maxWidth: "100%" }} direction="column">
