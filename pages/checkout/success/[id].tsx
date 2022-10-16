@@ -23,7 +23,7 @@ const CheckoutSuccess = () => {
           title={`Checkout Success | Sanket Naik Store`}
           description="Your order was placed successfully! Sit back and enjoy your new wallpapers"
           url={process.env.NEXT_PUBLIC_BASE_URL + "/checkout/success"}
-          imageURL={process.env.NEXT_PUBLIC_BASE_URL + "/store-logo.png"}
+          imageURL={process.env.NEXT_PUBLIC_BASE_URL + "/store-banner.png"}
         />
       </Head>
       <Grid container sx={{ padding: 3, maxWidth: "100%" }} direction="column">

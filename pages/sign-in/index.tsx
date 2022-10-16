@@ -19,7 +19,7 @@ const SignIn: NextPage = () => {
           title="Sign In | Sanket Naik Store"
           description="Welcome to my official wallpaper store. You can find lots of cool mobile and desktop wallpapers here which are perfect for devices of all screen sizes. Sign in to your account here."
           url={process.env.NEXT_PUBLIC_BASE_URL ?? "/sign-in"}
-          imageURL={process.env.NEXT_PUBLIC_BASE_URL + "/store-logo.png"}
+          imageURL={process.env.NEXT_PUBLIC_BASE_URL + "/store-banner.png"}
         />
       </Head>
       <Container>

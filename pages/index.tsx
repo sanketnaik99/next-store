@@ -33,7 +33,7 @@ const Home: NextPage = () => {
           title="Home | Sanket Naik Store"
           description="Welcome to my official wallpaper store. You can find lots of cool mobile and desktop wallpapers here which are perfect for devices of all screen sizes."
           url={process.env.NEXT_PUBLIC_BASE_URL ?? ""}
-          imageURL={process.env.NEXT_PUBLIC_BASE_URL + "/store-logo.png"}
+          imageURL={process.env.NEXT_PUBLIC_BASE_URL + "/store-banner.png"}
         />
       </Head>
       <Grid

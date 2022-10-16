@@ -40,7 +40,7 @@ const Cart: NextPage = () => {
             title="Cart | Sanket Naik Store"
             description="View and manage all the items in your cart."
             url={process.env.NEXT_PUBLIC_BASE_URL + "/cart"}
-            imageURL={process.env.NEXT_PUBLIC_BASE_URL + "/store-logo.png"}
+            imageURL={process.env.NEXT_PUBLIC_BASE_URL + "/store-banner.png"}
           />
         </Head>
         <Grid
