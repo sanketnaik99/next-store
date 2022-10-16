@@ -8,7 +8,7 @@ import { initializeCart } from "../../../ducks/cart";
 import { commerce } from "../../../pages/_app";
 import { darkTheme, lightTheme } from "../../../theme";
 import NavbarPlaceholder from "../Navbar/NavbarPlaceholder";
-import { CssBaseline } from '@mui/material';
+import { CssBaseline } from "@mui/material";
 
 interface Props {
   children: React.ReactNode;
@@ -61,9 +61,6 @@ const Layout: React.FC<Props> = ({ children }) => {
 
   return (
     <>
-      <Head>
-        <title>Next Store</title>
-      </Head>
       <ThemeProvider theme={currentTheme === "light" ? lightTheme : darkTheme}>
         <CssBaseline />
         <Suspense fallback={<NavbarPlaceholder />}>

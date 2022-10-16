@@ -19,6 +19,8 @@ import CardSkeleton from "../components/Shared/CardSkeleton/CardSkeleton";
 import { RootState } from "../ducks";
 import { Order } from "@chec/commerce.js/types/order";
 import Link from "next/link";
+import Head from "next/head";
+import Meta from "../components/Shared/Meta/Meta";
 
 const Orders = () => {
   const dispatch = useDispatch();
@@ -98,6 +100,14 @@ const Orders = () => {
 
   return (
     <>
+      <Head>
+        <Meta
+          title="Orders | Sanket Naik Store"
+          description="View all of your past orders here. You can also download the items from your past orders here."
+          url={process.env.NEXT_PUBLIC_BASE_URL + "/orders"}
+          imageURL={process.env.NEXT_PUBLIC_BASE_URL + "/store-logo.png"}
+        />
+      </Head>
       <Grid container sx={{ padding: 3, maxWidth: "100%" }} direction="column">
         <Typography variant="h3" component="h3" sx={{ fontWeight: "bold" }}>
           Orders.

@@ -10,7 +10,9 @@ import { useRouter } from "next/router";
 import EmptyCart from "../public/assets/empty-box.png";
 import Image from "next/image";
 
-import { Button, Divider, Grid, Stack, Typography } from '@mui/material';
+import { Button, Divider, Grid, Stack, Typography } from "@mui/material";
+import Head from "next/head";
+import Meta from "../components/Shared/Meta/Meta";
 
 const Cart: NextPage = () => {
   const cartItems = useSelector<RootState, LineItem[]>(
@@ -33,6 +35,14 @@ const Cart: NextPage = () => {
   if (cartItems.length === 0) {
     return (
       <>
+        <Head>
+          <Meta
+            title="Cart | Sanket Naik Store"
+            description="View and manage all the items in your cart."
+            url={process.env.NEXT_PUBLIC_BASE_URL + "/cart"}
+            imageURL={process.env.NEXT_PUBLIC_BASE_URL + "/store-logo.png"}
+          />
+        </Head>
         <Grid
           container
           sx={{ minHeight: "90vh" }}

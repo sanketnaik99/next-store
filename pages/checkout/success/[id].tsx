@@ -4,7 +4,9 @@ import DownloadCard from "../../../components/Checkout/DownloadCard/DownloadCard
 import { RootState } from "../../../ducks";
 import { Download, LineItem } from "../../../ducks/checkout/types";
 
-import { Grid, Typography } from '@mui/material';
+import { Grid, Typography } from "@mui/material";
+import Head from "next/head";
+import Meta from "../../../components/Shared/Meta/Meta";
 
 const CheckoutSuccess = () => {
   const items = useSelector<RootState, LineItem[] | undefined>(
@@ -16,6 +18,14 @@ const CheckoutSuccess = () => {
 
   return (
     <>
+      <Head>
+        <Meta
+          title={`Checkout Success | Sanket Naik Store`}
+          description="Your order was placed successfully! Sit back and enjoy your new wallpapers"
+          url={process.env.NEXT_PUBLIC_BASE_URL + "/checkout/success"}
+          imageURL={process.env.NEXT_PUBLIC_BASE_URL + "/store-logo.png"}
+        />
+      </Head>
       <Grid container sx={{ padding: 3, maxWidth: "100%" }} direction="column">
         <Typography variant="h3" component="h3" sx={{ fontWeight: "bold" }}>
           Order Successful.

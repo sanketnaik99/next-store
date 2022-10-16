@@ -9,6 +9,8 @@ import ReviewStep from "../../components/Checkout/ReviewStep/ReviewStep";
 import { Paper, Step, StepLabel, Stepper } from "@mui/material";
 import { useSelector } from "react-redux";
 import { RootState } from "../../ducks";
+import Head from "next/head";
+import Meta from "../../components/Shared/Meta/Meta";
 
 export interface CheckoutData {
   firstName: string;
@@ -69,7 +71,15 @@ const Checkout = () => {
   };
 
   return (
-    <div>
+    <>
+      <Head>
+        <Meta
+          title={`Checkout - ${cartId} | Sanket Naik Store`}
+          description="Ready to place your order? Checkout your cart here."
+          url={process.env.NEXT_PUBLIC_BASE_URL + `/checkout/${cartId}`}
+          imageURL={process.env.NEXT_PUBLIC_BASE_URL + "/store-logo.png"}
+        />
+      </Head>
       <Paper
         sx={{
           maxWidth: { xs: "95%", md: "75%" },
@@ -90,7 +100,7 @@ const Checkout = () => {
         </Stepper>
         {getStepPage(activeStep)}
       </Paper>
-    </div>
+    </>
   );
 };
 

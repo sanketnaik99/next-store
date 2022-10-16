@@ -1,8 +1,10 @@
 import { Grid, Stack, Typography } from "@mui/material";
+import Head from "next/head";
 import { useRouter } from "next/router";
 import React from "react";
 import { useSelector } from "react-redux";
 import DownloadCard from "../../components/Checkout/DownloadCard/DownloadCard";
+import Meta from "../../components/Shared/Meta/Meta";
 import { RootState } from "../../ducks";
 import { Download, LineItem } from "../../ducks/checkout/types";
 
@@ -26,6 +28,14 @@ const OrderDetails = () => {
 
   return (
     <>
+      <Head>
+        <Meta
+          title={`Order - ${id}  | Sanket Naik Store`}
+          description="View your order and all of its details here. You can also download the files associated with your order."
+          url={process.env.NEXT_PUBLIC_BASE_URL + `/order/${id}`}
+          imageURL={process.env.NEXT_PUBLIC_BASE_URL + "/store-logo.png"}
+        />
+      </Head>
       <Grid container sx={{ padding: 3, maxWidth: "100%" }} direction="column">
         <Grid item>
           <Typography variant="h3" component="h3" sx={{ fontWeight: "bold" }}>
