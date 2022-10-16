@@ -24,6 +24,7 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
+import Carousel from "react-material-ui-carousel";
 
 const chipColors: Record<string, string> = {
   featured: "#651fff",
@@ -59,22 +60,41 @@ const ProductCard: React.FC<Props> = ({ product }) => {
 
   return (
     <Card sx={{ height: "100%", display: "flex", flexDirection: "column" }}>
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "center",
-          height: "18rem",
-          width: "100%",
-          position: "relative",
+      <Carousel
+        indicators={true}
+        autoPlay={true}
+        navButtonsAlwaysVisible={true}
+        indicatorIconButtonProps={{
+          style: {
+            color: theme.palette.mode === "light" ? "#bdbdbd" : "#9e9e9e",
+          },
+        }}
+        activeIndicatorIconButtonProps={{
+          style: {
+            color: theme.palette.mode === "light" ? "#616161" : "#eeeeee",
+          },
         }}
       >
-        <Image
-          src={product.assets[0].url}
-          layout="fill"
-          objectFit="cover"
-          alt={product.name}
-        />
-      </Box>
+        {product.assets.map((image) => (
+          <Box
+            key={image.id}
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              height: "18rem",
+              width: "100%",
+              position: "relative",
+            }}
+          >
+            <Image
+              src={image.url}
+              layout="fill"
+              objectFit="cover"
+              alt={image.description ?? "Preview Image"}
+            />
+          </Box>
+        ))}
+      </Carousel>
 
       <CardContent sx={{ flexGrow: 1 }}>
         <Stack direction="row" spacing={1} sx={{ marginBottom: "1rem" }}>
